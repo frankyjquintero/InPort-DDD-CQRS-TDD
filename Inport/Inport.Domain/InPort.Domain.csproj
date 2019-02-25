@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="AggregatesModel\" />
+    <ProjectReference Include="..\InPort.Domain.Core\InPort.Domain.Core.csproj" />
   </ItemGroup>
 
 </Project>
