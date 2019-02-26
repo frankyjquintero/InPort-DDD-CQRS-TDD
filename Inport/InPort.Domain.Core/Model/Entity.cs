@@ -8,6 +8,33 @@ namespace InPort.Domain.Core.Model
     {
         public Guid Id { get; protected set; }
 
+        /// <summary>
+        /// Check if this entity is transient, ie, without identity at this moment
+        /// </summary>
+        /// <returns>True if entity is transient, else false</returns>
+        public bool IsTransient()
+        {
+            return this.Id == Guid.Empty;
+        }
+
+        /// <summary>
+        /// Generate identity for this entity
+        /// </summary>
+        public void GenerateNewIdentity()
+        {
+            if (IsTransient())
+                this.Id = IdentityGenerator.NewSequentialGuid();
+        }
+
+        /// <summary>
+        /// Change current identity for a new non transient identity
+        /// </summary>
+        /// <param name="identity">the new identity</param>
+        public void ChangeCurrentIdentity(Guid identity)
+        {
+            if (identity != Guid.Empty)
+                this.Id = identity;
+        }
         public override bool Equals(object obj)
         {
             var compareTo = obj as Entity;

@@ -1,11 +1,12 @@
-﻿using InPort.Domain.Core.Model;
+﻿
+using InPort.Domain.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace InPort.Domain.AggregatesModel.CustomerAgg
 {
-    public class Address : ValueObject<Address>
+    public class Address : ValueObject
     {
 
 
@@ -37,6 +38,11 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
         }
 
         private Address() { }  //required for EF
+
+        protected override IEnumerable<object> GetAtomicValues()
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
     }

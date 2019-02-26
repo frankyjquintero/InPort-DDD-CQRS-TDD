@@ -1,8 +1,9 @@
-﻿using InPort.Domain.Core.Commands;
+﻿
+using InPort.Domain.Core.Commands;
 using InPort.Domain.Core.Events;
 using System.Threading.Tasks;
 
-namespace InPort.Domain.Core.Bus
+namespace InPort.Domain.Core
 {
     public interface IMediatorHandler
     {

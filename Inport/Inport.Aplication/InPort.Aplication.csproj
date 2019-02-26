@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InPort.Aplication.Core\InPort.Aplication.Core.csproj" />
+    <ProjectReference Include="..\Inport.Domain\InPort.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,9 +1,10 @@
-﻿using InPort.Domain.Core.Bus;
+﻿using InPort.Domain.Core;
+using InPort.Domain.Core.Commands;
 using InPort.Domain.Core.Notifications;
 using MediatR;
 
 
-namespace InPort.Domain.Core.Commands
+namespace InPort.Aplication.Core.Commands
 {
     public class CommandHandler
     {
@@ -31,7 +32,7 @@ namespace InPort.Domain.Core.Commands
             if (_notifications.HasNotifications()) return false;
             if (_uow.Commit() > 0) return true;
 
-            _bus.RaiseEvent(new DomainNotification("Commit", "We had a problem during saving your data."));
+            _bus.RaiseEvent(new DomainNotification("Commit", "Tuvimos un problema al guardar tus datos."));
             return false;
         }
     }

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace InPort.Domain.Core.Events
 {
-    public abstract class Event : Message, INotification
+    public abstract class Event : Message, INotification, IEvent
     {
         public DateTime Timestamp { get; private set; }
 
