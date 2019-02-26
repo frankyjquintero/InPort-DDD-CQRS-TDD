@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Domain", "Inport.Domain\InPort.Domain.csproj", "{E76691C5-EF7D-487C-8AC4-6D72725D7160}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Domain", "InPort.Domain\InPort.Domain.csproj", "{E76691C5-EF7D-487C-8AC4-6D72725D7160}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Domain.Core", "InPort.Domain.Core\InPort.Domain.Core.csproj", "{CD964BE6-9B3F-4095-976D-135A4A0A7263}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Aplication", "Inport.Aplication\InPort.Aplication.csproj", "{FD449185-532B-4A17-A071-73F5AF83DAEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Aplication", "InPort.Aplication\InPort.Aplication.csproj", "{FD449185-532B-4A17-A071-73F5AF83DAEA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Aplication.Core", "InPort.Aplication.Core\InPort.Aplication.Core.csproj", "{17A0C16B-29FF-487D-B79F-6D0D4A3E109A}"
 EndProject
