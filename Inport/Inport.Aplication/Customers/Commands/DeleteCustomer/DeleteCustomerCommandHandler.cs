@@ -26,23 +26,23 @@ namespace InPort.Application.Customers.Commands.DeleteCustomer
 
         public async Task<Unit> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _customerRepository.GetAsync(request.Id);
+            //var entity = await _customerRepository.GetAsync(request.Id);
 
-            if (entity == null)
-            {
-               await Bus.RaiseEvent(new DomainNotification(request.MessageType, "The customer NotFoundException."));
-            }
+            //if (entity == null)
+            //{
+            //   await Bus.RaiseEvent(new DomainNotification(request.MessageType, "The customer NotFoundException."));
+            //}
 
-            var hasOrders = _context.Orders.Any(o => o.CustomerId == entity.CustomerId);
-            if (hasOrders)
-            {
-                throw new DeleteFailureException(nameof(Customer), request.Id, "There are existing orders associated with this customer.");
-            }
+            //var hasOrders = _context.Orders.Any(o => o.CustomerId == entity.CustomerId);
+            //if (hasOrders)
+            //{
+            //    throw new DeleteFailureException(nameof(Customer), request.Id, "There are existing orders associated with this customer.");
+            //}
 
-            _context.Customers.Remove(entity);
-            await _customerRepository.Remove(entity);
+            //_context.Customers.Remove(entity);
+            //await _customerRepository.Remove(entity);
 
-            await _context.SaveChangesAsync(cancellationToken);
+            //await _context.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

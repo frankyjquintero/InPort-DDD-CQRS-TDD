@@ -10,9 +10,8 @@ namespace InPort.Application.Customers.Commands.UpdateCustomer
         public UpdateCustomerCommand(Guid id, string name, string email, DateTime birthDate)
         {
             Id = id;
-            Name = name;
+            FirstName = name;
             Email = email;
-            BirthDate = birthDate;
         }
 
         public override bool IsValid()

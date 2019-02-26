@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using InPort.Application.Interfaces.Mapping;
-using InPort.Domain.Entities;
+using InPort.Application.Core.Interfaces.Mapping;
+using InPort.Domain.AggregatesModel.CustomerAgg;
 
 namespace InPort.Application.Customers.Queries.GetCustomersList
 {
@@ -12,8 +12,8 @@ namespace InPort.Application.Customers.Queries.GetCustomersList
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<Customer, CustomerLookupModel>()
-                .ForMember(cDTO => cDTO.Id, opt => opt.MapFrom(c => c.CustomerId))
-                .ForMember(cDTO => cDTO.Name, opt => opt.MapFrom(c => c.CompanyName));
+                .ForMember(cDTO => cDTO.Id, opt => opt.MapFrom(c => c.Id))
+                .ForMember(cDTO => cDTO.Name, opt => opt.MapFrom(c => c.FullName));
         }
     }
 }

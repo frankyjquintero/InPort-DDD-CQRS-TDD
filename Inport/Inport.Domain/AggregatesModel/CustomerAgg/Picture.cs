@@ -1,5 +1,4 @@
 ﻿using InPort.Domain.Core.Model;
-using InPort.Domain.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;

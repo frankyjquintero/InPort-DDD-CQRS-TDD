@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\InPort.Aplication.Core\InPort.Aplication.Core.csproj" />
     <ProjectReference Include="..\Inport.Domain\InPort.Domain.csproj" />
+    <ProjectReference Include="..\InPort.Infra.Data\InPort.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>

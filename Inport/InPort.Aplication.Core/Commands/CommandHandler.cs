@@ -30,7 +30,7 @@ namespace InPort.Aplication.Core.Commands
         public bool Commit()
         {
             if (_notifications.HasNotifications()) return false;
-            if (_uow.Commit() > 0) return true;
+            if (_uow.Commit()) return true;
 
             _bus.RaiseEvent(new DomainNotification("Commit", "Tuvimos un problema al guardar tus datos."));
             return false;

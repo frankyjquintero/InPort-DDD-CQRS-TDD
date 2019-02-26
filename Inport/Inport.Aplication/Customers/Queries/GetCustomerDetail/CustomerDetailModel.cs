@@ -1,6 +1,6 @@
-﻿using System;
+﻿using InPort.Domain.AggregatesModel.CustomerAgg;
+using System;
 using System.Linq.Expressions;
-using InPort.Domain.Entities;
 
 namespace InPort.Application.Customers.Queries.GetCustomerDetail
 {
@@ -24,17 +24,10 @@ namespace InPort.Application.Customers.Queries.GetCustomerDetail
             {
                 return customer => new CustomerDetailModel
                 {
-                    Id = customer.CustomerId,
-                    Address = customer.Address,
-                    City = customer.City,
-                    CompanyName = customer.CompanyName,
-                    ContactName = customer.ContactName,
-                    ContactTitle = customer.ContactTitle,
-                    Country = customer.Country,
-                    Fax = customer.Fax,
-                    Phone = customer.Phone,
-                    PostalCode = customer.PostalCode,
-                    Region = customer.Region
+                    Id = customer.Id.ToString(),
+                    Address = customer.Address.AddressLine1,
+                    City = customer.Address.City,
+                    Country = customer.CountryId.ToString()
                 };
             }
         }

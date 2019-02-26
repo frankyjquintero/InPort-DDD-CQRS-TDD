@@ -1,9 +1,12 @@
 ﻿using FluentValidation;
 using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using InPort.Aplication.Core.Exceptions;
+using ValidationException = InPort.Aplication.Core.Exceptions.ValidationException;
 
 namespace InPort.Aplication
 {
@@ -29,7 +32,7 @@ namespace InPort.Aplication
 
             if (failures.Count != 0)
             {
-                throw new Exceptions.ValidationException(failures);
+                throw new ValidationException(failures);
             }
 
             return next();

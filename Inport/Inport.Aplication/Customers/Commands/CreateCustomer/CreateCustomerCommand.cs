@@ -9,9 +9,8 @@ namespace InPort.Application.Customers.Commands.CreateCustomer
     {
         public CreateCustomerCommand(string name, string email, DateTime birthDate)
         {
-            Name = name;
+            FirstName = name;
             Email = email;
-            BirthDate = birthDate;
         }
 
         public override bool IsValid()

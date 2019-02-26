@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
-using InPort.Domain.Interfaces;
+using InPort.Domain.Core;
 using Microsoft.AspNetCore.Http;
 
 namespace InPort.Infra.CrossCutting.Identity.Models
