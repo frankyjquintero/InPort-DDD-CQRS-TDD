@@ -8,8 +8,8 @@ namespace InPort.Application.Customers.Commands.CreateCustomer
         public CreateCustomerCommandValidator()
         {
             ValidateId();
-            ValidateName();
-            ValidateBirthDate();
+            ValidateFirstName();
+            ValidateLastName();
             ValidateEmail();
         }
     }

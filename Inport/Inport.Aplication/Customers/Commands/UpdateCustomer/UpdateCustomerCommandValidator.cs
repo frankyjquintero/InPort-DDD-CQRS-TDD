@@ -9,8 +9,8 @@ namespace InPort.Application.Customers.Commands.UpdateCustomer
         public UpdateCustomerCommandValidator()
         {
             ValidateId();
-            ValidateName();
-            ValidateBirthDate();
+            ValidateFirstName();
+            ValidateLastName();
             ValidateEmail();
         }
 
