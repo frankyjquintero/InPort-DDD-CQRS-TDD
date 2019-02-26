@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Aplication", "InPort
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Aplication.Core", "InPort.Aplication.Core\InPort.Aplication.Core.csproj", "{17A0C16B-29FF-487D-B79F-6D0D4A3E109A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InPort.Infra.CrossCutting.Bus", "InPort.Infra.CrossCutting.Bus\InPort.Infra.CrossCutting.Bus.csproj", "{0FC5B4F1-939E-4E53-A2E7-97A509BA4220}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Infra.CrossCutting.Bus", "InPort.Infra.CrossCutting.Bus\InPort.Infra.CrossCutting.Bus.csproj", "{0FC5B4F1-939E-4E53-A2E7-97A509BA4220}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InPort.Infra.CrossCutting.Identity", "InPort.Infra.CrossCutting.Identity\InPort.Infra.CrossCutting.Identity.csproj", "{0850CE93-33CF-4AD3-A401-AF73B162D7CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{0FC5B4F1-939E-4E53-A2E7-97A509BA4220}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FC5B4F1-939E-4E53-A2E7-97A509BA4220}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FC5B4F1-939E-4E53-A2E7-97A509BA4220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0850CE93-33CF-4AD3-A401-AF73B162D7CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0850CE93-33CF-4AD3-A401-AF73B162D7CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0850CE93-33CF-4AD3-A401-AF73B162D7CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0850CE93-33CF-4AD3-A401-AF73B162D7CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
