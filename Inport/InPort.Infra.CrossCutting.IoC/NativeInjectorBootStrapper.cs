@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using InPort.Aplication;
-using InPort.Aplication.AutoMapper;
-using InPort.Aplication.Customers.Commands;
 using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Domain.Core;
 using InPort.Domain.Core.Events;
@@ -56,7 +54,7 @@ namespace InPort.Infra.CrossCutting.IoC
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<InPortDbContext>();
 
-           
+
 
             // Infra - Data EventSourcing
             services.AddScoped<IEventStoreRepository, EventStoreSQLRepository>();

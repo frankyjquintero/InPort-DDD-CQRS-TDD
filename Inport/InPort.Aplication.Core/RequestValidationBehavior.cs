@@ -1,11 +1,9 @@
 ﻿using FluentValidation;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using InPort.Aplication.Core.Exceptions;
 using ValidationException = InPort.Aplication.Core.Exceptions.ValidationException;
 
 namespace InPort.Aplication
@@ -22,9 +20,9 @@ namespace InPort.Aplication
 
         public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            var context = new ValidationContext(request);
+            ValidationContext context = new ValidationContext(request);
 
-            var failures = _validators
+            List<FluentValidation.Results.ValidationFailure> failures = _validators
                 .Select(v => v.Validate(context))
                 .SelectMany(result => result.Errors)
                 .Where(f => f != null)

@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.2-aspnetcore-runtime AS Base
+FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
@@ -19,31 +19,37 @@ RUN wget "$NODE_DOWNLOAD_URL" -O nodejs.tar.gz \
 RUN curl -sL https://deb.nodesource.com/setup_6.x |  bash -
 RUN apt-get install -y nodejs
 
-# Install npm packages first, this is slow so we want to minimise the number of un-cached runs
+# Primero instale los paquetes npm, esto es lento, por lo que queremos minimizar el número de ejecuciones sin caché
 WORKDIR /src/InPort.WebUI/ClientApp/
 COPY InPort.WebUI/ClientApp/package.json .
 COPY InPort.WebUI/ClientApp/package-lock.json .
 
 RUN npm install
 
-# Restore dotnet before build to allow for caching
-WORKDIR /
-COPY InPort.Application/InPort.Application.csproj /src/InPort.Application/
-COPY InPort.Common/InPort.Common.csproj /src/InPort.Common/
-COPY InPort.Domain/InPort.Domain.csproj /src/InPort.Domain/
-COPY InPort.Infrastructure/InPort.Infrastructure.csproj /src/InPort.Infrastructure/
-COPY InPort.Persistence/InPort.Persistence.csproj /src/InPort.Persistence/
-COPY InPort.WebUI/InPort.WebUI.csproj /src/InPort.WebUI/
+# Restaurar dotnet antes de construir para permitir el almacenamiento en caché
+WORKDIR /src
+COPY ["InPort.WebUI/InPort.WebUI.csproj", "InPort.WebUI/"]
+COPY ["InPort.Aplication.Core/InPort.Aplication.Core.csproj", "InPort.Aplication.Core/"]
+COPY ["InPort.Infra.CrossCutting.Bus/InPort.Infra.CrossCutting.Bus.csproj", "InPort.Infra.CrossCutting.Bus/"]
+COPY ["InPort.Domain.Core/InPort.Domain.Core.csproj", "InPort.Domain.Core/"]
+COPY ["InPort.Domain/InPort.Domain.csproj", "InPort.Domain/"]
+COPY ["InPort.Infra.Data/InPort.Infra.Data.csproj", "InPort.Infra.Data/"]
+COPY ["InPort.Infra.CrossCutting.IoC/InPort.Infra.CrossCutting.IoC.csproj", "InPort.Infra.CrossCutting.IoC/"]
+COPY ["InPort.Infra.CrossCutting.Identity/InPort.Infra.CrossCutting.Identity.csproj", "InPort.Infra.CrossCutting.Identity/"]
+COPY ["InPort.Aplication/InPort.Aplication.csproj", "InPort.Aplication/"]
+COPY ["InPort.Infra.Core/InPort.Infra.Core.csproj", "InPort.Infra.Core/"]
+RUN dotnet restore "InPort.WebUI/InPort.WebUI.csproj"
 
-RUN dotnet restore /src/InPort.WebUI/InPort.WebUI.csproj
+# Copia archivos fuente y compila
+COPY . .
+WORKDIR "/src/InPort.WebUI"
+RUN dotnet build "InPort.WebUI.csproj" -c Release -o /app
 
-# Copy source files and build
-COPY . /src
+FROM build AS publish
+RUN dotnet publish "InPort.WebUI.csproj" -c Release -o /app
 
-RUN dotnet build /src/InPort.WebUI/InPort.WebUI.csproj --no-restore -c Release
-RUN dotnet publish /src/InPort.WebUI/InPort.WebUI.csproj --no-restore -c Release -o /app
-
-# Copy compiled app to runtime container
+# Copiar la aplicación compilada al contenedor de tiempo de ejecución
 FROM base AS final
-COPY --from=build /app .
-CMD ["dotnet", "InPort.WebUI.dll"]
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT ["dotnet", "InPort.WebUI.dll"]
