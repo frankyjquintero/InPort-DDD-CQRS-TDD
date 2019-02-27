@@ -25,8 +25,8 @@ namespace InPort.Application.Customers.Queries.GetCustomerDetail
                 return customer => new CustomerDetailModel
                 {
                     Id = customer.Id.ToString(),
-                    Address = customer.Address.AddressLine1,
-                    City = customer.Address.City,
+                    //Address = customer.Address.AddressLine1,
+                    //City = customer.Address.City,
                     Country = customer.CountryId.ToString()
                 };
             }

@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using InPort.Domain.Core.Events;
 
-namespace InPort.Infra.Data.Mappings
+namespace InPort.Infra.Data.Configurations
 {    
-    public class StoredEventMap : IEntityTypeConfiguration<StoredEvent>
+    public class StoredEventConfiguration : IEntityTypeConfiguration<StoredEvent>
     {
         public void Configure(EntityTypeBuilder<StoredEvent> builder)
         {

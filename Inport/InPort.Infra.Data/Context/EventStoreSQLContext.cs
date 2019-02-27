@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using InPort.Domain.Core.Events;
-using InPort.Infra.Data.Mappings;
+using InPort.Infra.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -13,7 +13,7 @@ namespace InPort.Infra.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new StoredEventMap());
+            modelBuilder.ApplyConfiguration(new StoredEventConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

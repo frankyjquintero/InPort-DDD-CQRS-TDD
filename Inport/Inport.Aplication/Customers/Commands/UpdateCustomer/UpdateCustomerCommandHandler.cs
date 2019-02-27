@@ -7,9 +7,9 @@ namespace InPort.Application.Customers.Commands.UpdateCustomer
 {
     public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, Unit>
     {
-        private readonly InPortContext _context;
+        private readonly InPortDbContext _context;
 
-        public UpdateCustomerCommandHandler(InPortContext context)
+        public UpdateCustomerCommandHandler(InPortDbContext context)
         {
             _context = context;
         }

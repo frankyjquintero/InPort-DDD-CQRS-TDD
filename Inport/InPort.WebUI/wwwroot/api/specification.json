@@ -1,0 +1,471 @@
+﻿{
+  "x-generator": "NSwag v12.0.14.0 (NJsonSchema v9.13.18.0 (Newtonsoft.Json v11.0.0.0))",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "InPort Traders API",
+    "version": "1.0.0"
+  },
+  "consumes": [
+    "application/json-patch+json",
+    "application/json",
+    "text/json",
+    "application/*+json"
+  ],
+  "paths": {
+    "/api/Customers/GetAll": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_GetAll",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CustomersListViewModel"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customers/Get/{id}": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true,
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CustomerDetailModel"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customers/Create": {
+      "post": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_Create",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomerCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Customers/Update/{id}": {
+      "put": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCustomerCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Customers/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CustomersListViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "customers": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/CustomerLookupModel"
+            }
+          }
+        }
+      },
+      "CustomerLookupModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CustomerDetailModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactName": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "fax": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CreateCustomerCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomerCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "CustomerCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Command"
+          },
+          {
+            "type": "object",
+            "x-abstract": true,
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "guid"
+              },
+              "firstName": {
+                "type": "string",
+                "nullable": true
+              },
+              "lastName": {
+                "type": "string",
+                "nullable": true
+              },
+              "telephone": {
+                "type": "string",
+                "nullable": true
+              },
+              "company": {
+                "type": "string",
+                "nullable": true
+              },
+              "email": {
+                "type": "string",
+                "nullable": true
+              },
+              "addressCity": {
+                "type": "string",
+                "nullable": true
+              },
+              "addressZipCode": {
+                "type": "string",
+                "nullable": true
+              },
+              "addressLine1": {
+                "type": "string",
+                "nullable": true
+              },
+              "addressLine2": {
+                "type": "string",
+                "nullable": true
+              },
+              "countryId": {
+                "type": "string",
+                "format": "guid"
+              }
+            }
+          }
+        ]
+      },
+      "Command": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Message"
+          },
+          {
+            "type": "object",
+            "x-abstract": true,
+            "additionalProperties": false,
+            "properties": {
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "validationResult": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ValidationResult"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "ValidationResult": {
+        "type": "object",
+        "description": "The result of running a validator",
+        "additionalProperties": false,
+        "properties": {
+          "isValid": {
+            "type": "boolean",
+            "description": "Whether validation succeeded"
+          },
+          "errors": {
+            "type": "array",
+            "description": "A collection of errors",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ValidationFailure"
+            }
+          },
+          "ruleSetsExecuted": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ValidationFailure": {
+        "type": "object",
+        "description": "Defines a validation failure",
+        "additionalProperties": false,
+        "properties": {
+          "propertyName": {
+            "type": "string",
+            "description": "The name of the property.",
+            "nullable": true
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "The error message",
+            "nullable": true
+          },
+          "attemptedValue": {
+            "description": "The property value that caused the failure.",
+            "nullable": true
+          },
+          "customState": {
+            "description": "Custom state associated with the failure.",
+            "nullable": true
+          },
+          "severity": {
+            "description": "Custom severity level associated with the failure.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Severity"
+              }
+            ]
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "Gets or sets the error code.",
+            "nullable": true
+          },
+          "formattedMessageArguments": {
+            "type": "array",
+            "description": "Gets or sets the formatted message arguments.\nThese are values for custom formatted message in validator resource files\nSame formatted message can be reused in UI and with same number of format placeholders\nLike \"Value {0} that you entered should be {1}\"",
+            "nullable": true,
+            "items": {}
+          },
+          "formattedMessagePlaceholderValues": {
+            "type": "object",
+            "description": "Gets or sets the formatted message placeholder values.",
+            "nullable": true,
+            "additionalProperties": {}
+          },
+          "resourceName": {
+            "type": "string",
+            "description": "The resource name used for building the message",
+            "nullable": true
+          }
+        }
+      },
+      "Severity": {
+        "type": "integer",
+        "description": "Specifies the severity of a rule. ",
+        "x-enumNames": [
+          "Error",
+          "Warning",
+          "Info"
+        ],
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      },
+      "Message": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "messageType": {
+            "type": "string",
+            "nullable": true
+          },
+          "aggregateId": {
+            "type": "string",
+            "format": "guid"
+          }
+        }
+      },
+      "UpdateCustomerCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CustomerCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
+      }
+    }
+  }
+}

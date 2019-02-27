@@ -10,10 +10,10 @@ namespace InPort.Application.Customers.Queries.GetCustomersList
 {
     public class GetCustomersListQueryHandler : IRequestHandler<GetCustomersListQuery, CustomersListViewModel>
     {
-        private readonly InPortContext _context;
+        private readonly InPortDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetCustomersListQueryHandler(InPortContext context, IMapper mapper)
+        public GetCustomersListQueryHandler(InPortDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -23,7 +23,7 @@ namespace InPort.Application.Customers.Queries.GetCustomersList
         {
             return new CustomersListViewModel
             {
-                Customers = await _context.Customers.ProjectTo<CustomerLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                Customers =  await _context.Customers.ProjectTo<CustomerLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
             };
         }
     }

@@ -13,13 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Aplication.Core", "I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Infra.CrossCutting.Bus", "InPort.Infra.CrossCutting.Bus\InPort.Infra.CrossCutting.Bus.csproj", "{0FC5B4F1-939E-4E53-A2E7-97A509BA4220}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InPort.Infra.CrossCutting.Identity", "InPort.Infra.CrossCutting.Identity\InPort.Infra.CrossCutting.Identity.csproj", "{0850CE93-33CF-4AD3-A401-AF73B162D7CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Infra.CrossCutting.Identity", "InPort.Infra.CrossCutting.Identity\InPort.Infra.CrossCutting.Identity.csproj", "{0850CE93-33CF-4AD3-A401-AF73B162D7CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InPort.Infra.CrossCutting.IoC", "InPort.Infra.CrossCutting.IoC\InPort.Infra.CrossCutting.IoC.csproj", "{CD4FF742-3A96-40DC-8D10-A68BE2B39E4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Infra.CrossCutting.IoC", "InPort.Infra.CrossCutting.IoC\InPort.Infra.CrossCutting.IoC.csproj", "{CD4FF742-3A96-40DC-8D10-A68BE2B39E4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InPort.Infra.Data", "InPort.Infra.Data\InPort.Infra.Data.csproj", "{77E8517E-8E5F-4D4C-AA73-198B9336C3C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Infra.Data", "InPort.Infra.Data\InPort.Infra.Data.csproj", "{77E8517E-8E5F-4D4C-AA73-198B9336C3C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InPort.Infra.Core", "InPort.Infra.Core\InPort.Infra.Core.csproj", "{0C37A72F-4BF6-4FDF-BFD3-31AF9F92BF23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Infra.Core", "InPort.Infra.Core\InPort.Infra.Core.csproj", "{0C37A72F-4BF6-4FDF-BFD3-31AF9F92BF23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.WebUI", "InPort.WebUI\InPort.WebUI.csproj", "{FEF15FB0-0D61-4618-8D09-3F95D0AA356E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{0C37A72F-4BF6-4FDF-BFD3-31AF9F92BF23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C37A72F-4BF6-4FDF-BFD3-31AF9F92BF23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C37A72F-4BF6-4FDF-BFD3-31AF9F92BF23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEF15FB0-0D61-4618-8D09-3F95D0AA356E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEF15FB0-0D61-4618-8D09-3F95D0AA356E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEF15FB0-0D61-4618-8D09-3F95D0AA356E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEF15FB0-0D61-4618-8D09-3F95D0AA356E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

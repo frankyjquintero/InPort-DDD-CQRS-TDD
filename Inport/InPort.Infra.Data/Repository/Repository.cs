@@ -8,10 +8,10 @@ namespace InPort.Infra.Data.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly InPortContext Db;
+        protected readonly InPortDbContext Db;
         protected readonly DbSet<TEntity> DbSet;
 
-        public Repository(InPortContext context)
+        public Repository(InPortDbContext context)
         {
             Db = context;
             DbSet = Db.Set<TEntity>();

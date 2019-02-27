@@ -2,13 +2,12 @@
 using InPort.Domain.Core.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+
 
 namespace InPort.Domain.AggregatesModel.CustomerAgg
 {
     public class Customer 
-        : Entity, IValidatableObject
+        : Entity
     {
         #region Members
 
@@ -23,7 +22,7 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
         public string LastName { get; set; }
 
 
-        public string FullName
+        public virtual string FullName
         {
             get
             {
@@ -35,7 +34,8 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
         public string Telephone { get; set; }
         public string Company { get; set; }
         public string Email { get; set; }
-        public virtual Address Address { get; set; }
+
+        public Address Address { get; set; }
 
     
         /// <summary>
@@ -67,7 +67,8 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
         /// <summary>
         /// Obtener o configurar foto asociada para este cliente.
         /// </summary>
-        public virtual Picture Picture { get; private set; }
+
+        public Picture Picture { get; private set; }
 
         #endregion
 
@@ -141,34 +142,6 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
 
         #endregion
 
-        #region IValidatableObject Members
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            var validationResults = new List<ValidationResult>();
-
-        
-            if (String.IsNullOrWhiteSpace(this.FirstName))
-            {
-                validationResults.Add(new ValidationResult("Primer Nombre no puede ser vacio o nulo",
-                                                           new string[] { "FirstName" }));
-            }
-
-            if (String.IsNullOrWhiteSpace(this.LastName))
-            {
-                validationResults.Add(new ValidationResult("segundo Nombre no puede ser vacio o nulo",
-                                                           new string[] { "LastName" }));
-            }
-
-            //-->Check Country identifier
-            if (this.CountryId == Guid.Empty)
-                validationResults.Add(new ValidationResult("El identificar de pais no puede ser vacio o nulo",
-                                                          new string[] { "CountryId" }));
-
-
-            return validationResults;
-        }
-
-        #endregion
+       
     }
 }

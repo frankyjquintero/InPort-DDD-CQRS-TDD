@@ -8,9 +8,9 @@ namespace InPort.Application.Customers.Queries.GetCustomerDetail
 {
     public class GetCustomerDetailQueryHandler : IRequestHandler<GetCustomerDetailQuery, CustomerDetailModel>
     {
-        private readonly InPortContext _context;
+        private readonly InPortDbContext _context;
 
-        public GetCustomerDetailQueryHandler(InPortContext context)
+        public GetCustomerDetailQueryHandler(InPortDbContext context)
         {
             _context = context;
         }

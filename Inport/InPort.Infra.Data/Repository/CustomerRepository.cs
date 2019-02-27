@@ -8,7 +8,7 @@ namespace InPort.Infra.Data.Repository
 {
     public class CustomerRepository : Repository<Customer>, ICustomerRepository
     {
-        public CustomerRepository(InPortContext context)
+        public CustomerRepository(InPortDbContext context)
             : base(context)
         {
 

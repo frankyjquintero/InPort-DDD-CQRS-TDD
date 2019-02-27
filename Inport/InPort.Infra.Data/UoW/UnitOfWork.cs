@@ -5,9 +5,9 @@ namespace InPort.Infra.Data.UoW
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly InPortContext _context;
+        private readonly InPortDbContext _context;
 
-        public UnitOfWork(InPortContext context)
+        public UnitOfWork(InPortDbContext context)
         {
             _context = context;
         }
