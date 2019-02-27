@@ -6,6 +6,7 @@ using InPort.Domain.Core;
 using InPort.Domain.Core.Notifications;
 using InPort.Aplication.Core.Commands;
 using System;
+using InPort.Domain.AggregatesModel.CountryAgg;
 
 namespace InPort.Application.Customers.Commands.CreateCustomer
 {
@@ -26,12 +27,12 @@ namespace InPort.Application.Customers.Commands.CreateCustomer
 
         public async Task<Unit> Handle(CreateCustomerCommand message, CancellationToken cancellationToken)
         {
-
-            //var customer = CustomerFactory.CreateCustomer(message.Name, message.Name, message.Email, message.BirthDate);
+            //var country = new Country();
+            //var customer = CustomerFactory.CreateCustomer(message.FirstName, message.LastName, message.Telephone, message.Company,);
 
             //if (_customerRepository.GetByEmail(customer.Email) != null)
             //{
-            //  await   Bus.RaiseEvent(new DomainNotification(message.MessageType, "El correo electrónico del cliente ya ha sido tomado."));
+            //    await Bus.RaiseEvent(new DomainNotification(message.MessageType, "El correo electrónico del cliente ya ha sido tomado."));
             //    return Unit.Value;
             //}
 
