@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InPort.Aplication;
+using InPort.Aplication.Core;
 using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Domain.Core;
 using InPort.Domain.Core.Events;

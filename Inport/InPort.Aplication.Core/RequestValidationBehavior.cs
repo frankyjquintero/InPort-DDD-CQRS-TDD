@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ValidationException = InPort.Aplication.Core.Exceptions.ValidationException;
 
-namespace InPort.Aplication
+namespace InPort.Aplication.Core
 {
     public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
