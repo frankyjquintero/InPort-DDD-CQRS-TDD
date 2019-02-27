@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using InPort.Domain.AggregatesModel.CountryAgg;
 using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Infra.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace InPort.Infra.Data.Context
         }
 
         public DbSet<Customer> Customers { get; set; }
-
+        public DbSet<Country> Countries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

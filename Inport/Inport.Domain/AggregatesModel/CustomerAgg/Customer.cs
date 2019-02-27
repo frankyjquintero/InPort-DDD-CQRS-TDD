@@ -22,7 +22,7 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
         public string LastName { get; set; }
 
 
-        public virtual string FullName
+        public string FullName
         {
             get
             {

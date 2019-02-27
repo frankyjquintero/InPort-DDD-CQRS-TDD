@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using InPort.Aplication;
-using InPort.Aplication.Core.AutoMapper;
+using InPort.Aplication.AutoMapper;
 using InPort.Aplication.Customers.Commands;
 using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Domain.Core;
@@ -37,7 +37,7 @@ namespace InPort.Infra.CrossCutting.IoC
             services.AddSingleton<IAuthorizationHandler, ClaimsRequirementHandler>();
 
             // Add AutoMapper
-            services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
+            services.AddAutoMapper(new Assembly[] { typeof(AplicationRefAssembly).GetTypeInfo().Assembly });
 
             // Add framework services.
             services.AddTransient<IDateTime, MachineDateTime>();
@@ -48,7 +48,7 @@ namespace InPort.Infra.CrossCutting.IoC
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            services.AddMediatR(typeof(CustomerCommand).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(AplicationRefAssembly).GetTypeInfo().Assembly);
 
 
             // Infra - Data

@@ -30,7 +30,7 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
             customer.Telephone = telephone;
 
             //establecer direccion
-            //customer.Address = address;
+            customer.Address = address;
 
             // el cliente está habilitado por defecto
             customer.Enable();

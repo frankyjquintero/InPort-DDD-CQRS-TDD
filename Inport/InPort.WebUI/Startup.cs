@@ -1,7 +1,5 @@
-using AutoMapper;
 using FluentValidation.AspNetCore;
 using InPort.Aplication;
-using InPort.Aplication.Core.AutoMapper;
 using InPort.Infra.CrossCutting.IoC;
 using InPort.Infra.Data.Context;
 using InPort.WebUI.Filters;
@@ -13,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NSwag.AspNetCore;
-using System.Reflection;
 
 namespace InPort.WebUI
 {
@@ -29,9 +26,6 @@ namespace InPort.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add AutoMapper
-            services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
-
 
             // Add DbContext using SQL Server Provider
             services.AddDbContext<InPortDbContext>(options =>
@@ -57,7 +51,7 @@ namespace InPort.WebUI
             // .NET Native DI Abstraction
             RegisterServices(services);
 
-     
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +72,7 @@ namespace InPort.WebUI
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseSwagger();
             app.UseSwaggerUi3(settings =>
             {
                 settings.Path = "/api";

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace InPort.Aplication.Core.AutoMapper
+namespace InPort.Aplication.AutoMapper
 {
     public sealed class Map
     {

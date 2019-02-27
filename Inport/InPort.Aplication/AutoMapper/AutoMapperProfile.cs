@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using InPort.Aplication.Core.AutoMapper;
 using System.Reflection;
 
-namespace InPort.Aplication.Core.AutoMapper
+namespace InPort.Aplication.AutoMapper
 {
     public class AutoMapperProfile : Profile
     {

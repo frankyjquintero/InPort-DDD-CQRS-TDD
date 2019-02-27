@@ -9,9 +9,8 @@ import { NavTopMenuComponent } from './nav-top-menu/nav-top-menu.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CustomersComponent } from './customers/customers.component';
 
-import { CustomersClient, ProductsClient } from './InPort-traders-api';
+import { CustomersClient } from './InPort-traders-api';
 import { AppRoutingModule } from './/app-routing.module';
-import { ProductsComponent } from './products/products.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { ProductsComponent } from './products/products.component';
     NavSideMenuComponent,
     DashboardComponent,
     CustomersComponent,
-    ProductsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,8 +27,7 @@ import { ProductsComponent } from './products/products.component';
     AppRoutingModule
   ],
   providers: [
-    CustomersClient,
-    ProductsClient
+    CustomersClient
   ],
   bootstrap: [AppComponent]
 })

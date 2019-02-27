@@ -4,14 +4,16 @@ using InPort.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InPort.Infra.Data.Migrations
 {
     [DbContext(typeof(InPortDbContext))]
-    partial class InPortDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190227163104_CountriesAddContext")]
+    partial class CountriesAddContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

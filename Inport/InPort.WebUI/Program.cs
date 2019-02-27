@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using InPort.Infra.Data.Context;
+using InPort.Infra.Data.Seeds;
 
 namespace InPort.WebUI
 {
@@ -22,7 +23,7 @@ namespace InPort.WebUI
                     var context = scope.ServiceProvider.GetService<InPortDbContext>();
                     context.Database.Migrate();
 
-                    //InPortInitializer.Initialize(context);
+                    InPortInitializer.Initialize(context);
                 }
                 catch (Exception ex)
                 {
