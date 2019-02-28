@@ -1,23 +1,21 @@
-﻿using InPort.Aplication.Core.Commands;
-using InPort.Aplication.Customers.Commands;
-using MediatR;
+﻿using MediatR;
 using System;
 
 namespace InPort.Application.Customers.Commands.UpdateCustomer
 {
-    public class UpdateCustomerCommand : CustomerCommand
+    public class UpdateCustomerCommand : IRequest
     {
-        public UpdateCustomerCommand(Guid id, string name, string email, DateTime birthDate)
-        {
-            Id = id;
-            FirstName = name;
-            Email = email;
-        }
+        public Guid Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Telephone { get; set; }
+        public string Company { get; set; }
+        public string Email { get; set; }
+        public string AddressCity { get; set; }
+        public string AddressZipCode { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+        public string CountryId { get; set; }
 
-        public override bool IsValid()
-        {
-            ValidationResult = new UpdateCustomerCommandValidator().Validate(this);
-            return ValidationResult.IsValid;
-        }
     }
 }

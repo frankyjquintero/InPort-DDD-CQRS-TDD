@@ -67,7 +67,7 @@ namespace InPort.WebUI.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _mediator.Send(new DeleteCustomerCommand(id));
+            await _mediator.Send(new DeleteCustomerCommand{ Id = id });
 
             return NoContent();
         }

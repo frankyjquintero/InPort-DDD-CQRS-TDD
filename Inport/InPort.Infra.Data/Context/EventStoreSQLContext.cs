@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using InPort.Domain.Core.Events;
 using InPort.Infra.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
@@ -19,15 +20,13 @@ namespace InPort.Infra.Data.Context
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // get the configuration from the app settings
+        {   
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
-
-            // define the database to use
-            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            Console.WriteLine("kheeeeeeeeeeeeeeeeeee" + config.GetConnectionString("EventSourcingDatabase"));
+            optionsBuilder.UseSqlServer(config.GetConnectionString("EventSourcingDatabase"));
         }
     }
 }

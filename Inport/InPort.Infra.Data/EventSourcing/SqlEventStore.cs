@@ -18,6 +18,7 @@ namespace InPort.Infra.Data.EventSourcing
 
         public void Save<T>(T theEvent) where T : Event
         {
+
             var serializedData = JsonConvert.SerializeObject(theEvent);
 
             var storedEvent = new StoredEvent(

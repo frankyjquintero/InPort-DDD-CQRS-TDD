@@ -10,7 +10,8 @@ namespace InPort.Domain.Core.Notifications
         public string Value { get; private set; }
         public int Version { get; private set; }
 
-        public DomainNotification(string key, string value)
+        public DomainNotification(string key, string value):
+            base(Guid.NewGuid())
         {
             DomainNotificationId = Guid.NewGuid();
             Version = 1;

@@ -9,8 +9,6 @@ namespace InPort.Domain.Core
 {
     public interface IMediatorHandler
     {
-        Task<Unit> SendCommand<T>(T command) where T : Command;
-        Task<Unit> SendCommandQuery<T>(T command) where T : IRequest;
-        Task RaiseEvent<T>(T @event) where T : Event;
+
     }
 }

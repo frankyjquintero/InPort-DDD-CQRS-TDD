@@ -1,23 +1,24 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
-using InPort.Domain.Core.Commands;
+﻿using InPort.Aplication.Core.Commands;
+using InPort.Aplication.Core.Exceptions;
+using InPort.Aplication.Customers.Events;
+using InPort.Application.Customers.Events;
 using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Domain.Core;
 using InPort.Domain.Core.Notifications;
-using InPort.Aplication.Core.Commands;
+using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace InPort.Application.Customers.Commands.DeleteCustomer
 {
     public class DeleteCustomerCommandHandler : CommandHandler, IRequestHandler<DeleteCustomerCommand>
     {
         private readonly ICustomerRepository _customerRepository;
-        private readonly IMediatorHandler Bus;
+        private readonly IMediator Bus;
 
         public DeleteCustomerCommandHandler(ICustomerRepository customerRepository,
                                       IUnitOfWork uow,
-                                      IMediatorHandler bus,
+                                      IMediator bus,
                                       INotificationHandler<DomainNotification> notifications) : base(uow, bus, notifications)
         {
             _customerRepository = customerRepository;
@@ -26,6 +27,9 @@ namespace InPort.Application.Customers.Commands.DeleteCustomer
 
         public async Task<Unit> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
         {
+            await Bus.Publish(new CustomerDeletedEvent(request.Id));
+
+            //throw new DeleteFailureException(nameof(Customer), request.Id, "There are existing orders associated with this customer.");
             //var entity = await _customerRepository.GetAsync(request.Id);
 
             //if (entity == null)

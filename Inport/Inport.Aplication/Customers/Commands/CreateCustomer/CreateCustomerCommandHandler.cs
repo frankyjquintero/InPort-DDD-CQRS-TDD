@@ -14,11 +14,11 @@ namespace InPort.Application.Customers.Commands.CreateCustomer
     {
 
         private readonly ICustomerRepository _customerRepository;
-        private readonly IMediatorHandler Bus;
+        private readonly IMediator Bus;
 
         public CreateCustomerCommandHandler(ICustomerRepository customerRepository,
                                       IUnitOfWork uow,
-                                      IMediatorHandler bus,
+                                      IMediator bus,
                                       INotificationHandler<DomainNotification> notifications) : base(uow, bus, notifications)
         {
             _customerRepository = customerRepository; 

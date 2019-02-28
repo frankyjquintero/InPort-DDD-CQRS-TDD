@@ -27,6 +27,8 @@ namespace InPort.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // .NET Native DI Abstraction
+            RegisterServices(services);
 
             // Add DbContext using SQL Server Provider
             services.AddDbContext<InPortDbContext>(options =>
@@ -49,8 +51,7 @@ namespace InPort.WebUI
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            // .NET Native DI Abstraction
-            RegisterServices(services);
+            
 
 
         }
@@ -73,7 +74,6 @@ namespace InPort.WebUI
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseSwagger();
             app.UseSwaggerUi3(settings =>
             {
                 settings.Path = "/api";

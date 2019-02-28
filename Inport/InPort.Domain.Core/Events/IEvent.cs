@@ -2,7 +2,7 @@
 
 namespace InPort.Domain.Core.Events
 {
-    public interface IEvent: IMessage
+    public interface IEvent
     {
         DateTime Timestamp { get; }
     }

@@ -1,17 +1,31 @@
 ﻿using FluentValidation;
-using FluentValidation.Validators;
-using InPort.Aplication.Customers.Validations;
 
 namespace InPort.Application.Customers.Commands.UpdateCustomer
 {
-    public class UpdateCustomerCommandValidator : CustomerValidation<UpdateCustomerCommand>
+    public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCommand>
     {
         public UpdateCustomerCommandValidator()
         {
-            ValidateId();
-            ValidateFirstName();
-            ValidateLastName();
-            ValidateEmail();
+            RuleFor(c => c.Id)
+                .NotEqual("").WithMessage("Por favor, asegúrese de haber ingresado el Id");
+
+            RuleFor(c => c.FirstName)
+                     .NotEmpty().WithMessage("Por favor, asegúrese de haber ingresado el nombre")
+                     .Length(2, 150).WithMessage("El nombre debe tener entre 2 y 150 caracteres.");
+
+            RuleFor(c => c.LastName)
+                .NotEmpty().WithMessage("Por favor, asegúrese de haber ingresado el apellido")
+                .Length(2, 150).WithMessage("El apellido debe tener entre 2 y 150 caracteres.");
+
+            RuleFor(c => c.Email)
+                .NotEmpty()
+                .EmailAddress();
+
+
+
+
+            RuleFor(c => c.CountryId)
+                .NotEqual("");
         }
 
     }

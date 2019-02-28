@@ -1,22 +1,20 @@
 ﻿using InPort.Aplication.Core.Commands;
-using InPort.Aplication.Customers.Commands;
 using MediatR;
 using System;
 
 namespace InPort.Application.Customers.Commands.CreateCustomer
 {
-    public class CreateCustomerCommand : CustomerCommand
+    public class CreateCustomerCommand : IRequest
     {
-        public CreateCustomerCommand(string name, string email, DateTime birthDate)
-        {
-            FirstName = name;
-            Email = email;
-        }
-
-        public override bool IsValid()
-        {
-            ValidationResult = new CreateCustomerCommandValidator().Validate(this);
-            return ValidationResult.IsValid;
-        }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Telephone { get; set; }
+        public string Company { get; set; }
+        public string Email { get; set; }
+        public string AddressCity { get; set; }
+        public string AddressZipCode { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+        public string CountryId { get; set; }
     }
 }

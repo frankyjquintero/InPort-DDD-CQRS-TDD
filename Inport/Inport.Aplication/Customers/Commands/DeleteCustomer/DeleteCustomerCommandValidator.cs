@@ -1,13 +1,14 @@
 ﻿using FluentValidation;
-using InPort.Aplication.Customers.Validations;
+using System;
 
 namespace InPort.Application.Customers.Commands.DeleteCustomer
 {
-    public class DeleteCustomerCommandValidator : CustomerValidation<DeleteCustomerCommand>
+    public class DeleteCustomerCommandValidator : AbstractValidator<DeleteCustomerCommand>
     {
         public DeleteCustomerCommandValidator()
         {
-            ValidateId();
+            RuleFor(c => c.Id)
+               .NotEqual(Guid.Empty).WithMessage("Por favor, asegúrese de haber ingresado el Id valido"); 
         }
     }
 }
