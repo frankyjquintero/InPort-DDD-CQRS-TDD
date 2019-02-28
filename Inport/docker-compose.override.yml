@@ -6,7 +6,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://0.0.0.0:80
-      - ConnectionStrings__NorthwindDatabase=Server=data.sql;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sa;Password=Pass@word
+      - InPortDatabase="Server=data.sql;Database=InPortTraders;Trusted_Connection=True;Application Name=InPort;User Id=sa;Password=Pass@word"
+      - EventSourcingDatabase="Server=data.sql;Database=InPortTradersEventSourcing;Trusted_Connection=True;Application Name=InPort;User Id=sa;Password=Pass@word"
+ 
     ports:
       - "81:80"
 
