@@ -1,5 +1,4 @@
 ﻿using InPort.Domain.Core;
-using InPort.Domain.Core.Commands;
 using InPort.Domain.Core.Events;
 using InPort.Domain.Core.Querys;
 using MediatR;
