@@ -12,6 +12,70 @@
     "application/*+json"
   ],
   "paths": {
+    "/api/Account/Login/account": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_Login",
+        "requestBody": {
+          "x-name": "model",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginViewModel"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "file"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Account/Register/account/register": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "Account_Register",
+        "requestBody": {
+          "x-name": "model",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterViewModel"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "file"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Customers/GetAll": {
       "get": {
         "tags": [
@@ -173,6 +237,56 @@
   },
   "components": {
     "schemas": {
+      "LoginViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "minLength": 1
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rememberMe": {
+            "title": "Remember me?",
+            "type": "boolean"
+          }
+        }
+      },
+      "RegisterViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "format": "email",
+            "minLength": 1
+          },
+          "password": {
+            "title": "Password",
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 6
+          },
+          "confirmPassword": {
+            "title": "Confirm password",
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "CustomersListViewModel": {
         "type": "object",
         "additionalProperties": false,
@@ -251,220 +365,100 @@
         }
       },
       "CreateCustomerCommand": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/CustomerCommand"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false
-          }
-        ]
-      },
-      "CustomerCommand": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Command"
-          },
-          {
-            "type": "object",
-            "x-abstract": true,
-            "additionalProperties": false,
-            "properties": {
-              "id": {
-                "type": "string",
-                "format": "guid"
-              },
-              "firstName": {
-                "type": "string",
-                "nullable": true
-              },
-              "lastName": {
-                "type": "string",
-                "nullable": true
-              },
-              "telephone": {
-                "type": "string",
-                "nullable": true
-              },
-              "company": {
-                "type": "string",
-                "nullable": true
-              },
-              "email": {
-                "type": "string",
-                "nullable": true
-              },
-              "addressCity": {
-                "type": "string",
-                "nullable": true
-              },
-              "addressZipCode": {
-                "type": "string",
-                "nullable": true
-              },
-              "addressLine1": {
-                "type": "string",
-                "nullable": true
-              },
-              "addressLine2": {
-                "type": "string",
-                "nullable": true
-              },
-              "countryId": {
-                "type": "string",
-                "format": "guid"
-              }
-            }
-          }
-        ]
-      },
-      "Command": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Message"
-          },
-          {
-            "type": "object",
-            "x-abstract": true,
-            "additionalProperties": false,
-            "properties": {
-              "timestamp": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "validationResult": {
-                "nullable": true,
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/ValidationResult"
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "ValidationResult": {
         "type": "object",
-        "description": "The result of running a validator",
         "additionalProperties": false,
         "properties": {
-          "isValid": {
-            "type": "boolean",
-            "description": "Whether validation succeeded"
-          },
-          "errors": {
-            "type": "array",
-            "description": "A collection of errors",
-            "nullable": true,
-            "items": {
-              "$ref": "#/components/schemas/ValidationFailure"
-            }
-          },
-          "ruleSetsExecuted": {
-            "type": "array",
-            "nullable": true,
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "ValidationFailure": {
-        "type": "object",
-        "description": "Defines a validation failure",
-        "additionalProperties": false,
-        "properties": {
-          "propertyName": {
-            "type": "string",
-            "description": "The name of the property.",
-            "nullable": true
-          },
-          "errorMessage": {
-            "type": "string",
-            "description": "The error message",
-            "nullable": true
-          },
-          "attemptedValue": {
-            "description": "The property value that caused the failure.",
-            "nullable": true
-          },
-          "customState": {
-            "description": "Custom state associated with the failure.",
-            "nullable": true
-          },
-          "severity": {
-            "description": "Custom severity level associated with the failure.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Severity"
-              }
-            ]
-          },
-          "errorCode": {
-            "type": "string",
-            "description": "Gets or sets the error code.",
-            "nullable": true
-          },
-          "formattedMessageArguments": {
-            "type": "array",
-            "description": "Gets or sets the formatted message arguments.\nThese are values for custom formatted message in validator resource files\nSame formatted message can be reused in UI and with same number of format placeholders\nLike \"Value {0} that you entered should be {1}\"",
-            "nullable": true,
-            "items": {}
-          },
-          "formattedMessagePlaceholderValues": {
-            "type": "object",
-            "description": "Gets or sets the formatted message placeholder values.",
-            "nullable": true,
-            "additionalProperties": {}
-          },
-          "resourceName": {
-            "type": "string",
-            "description": "The resource name used for building the message",
-            "nullable": true
-          }
-        }
-      },
-      "Severity": {
-        "type": "integer",
-        "description": "Specifies the severity of a rule. ",
-        "x-enumNames": [
-          "Error",
-          "Warning",
-          "Info"
-        ],
-        "enum": [
-          0,
-          1,
-          2
-        ]
-      },
-      "Message": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false,
-        "properties": {
-          "messageType": {
+          "firstName": {
             "type": "string",
             "nullable": true
           },
-          "aggregateId": {
+          "lastName": {
             "type": "string",
-            "format": "guid"
+            "nullable": true
+          },
+          "telephone": {
+            "type": "string",
+            "nullable": true
+          },
+          "company": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressCity": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressZipCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressLine1": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressLine2": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryId": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
       "UpdateCustomerCommand": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/CustomerCommand"
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
           },
-          {
-            "type": "object",
-            "additionalProperties": false
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "telephone": {
+            "type": "string",
+            "nullable": true
+          },
+          "company": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressCity": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressZipCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressLine1": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressLine2": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryId": {
+            "type": "string",
+            "nullable": true
           }
-        ]
+        }
       }
     }
   }

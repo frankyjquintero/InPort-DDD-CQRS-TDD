@@ -34,6 +34,8 @@ namespace InPort.WebUI
             services.AddDbContext<InPortDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("InPortDatabase")));
 
+
+
             services
                 .AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)

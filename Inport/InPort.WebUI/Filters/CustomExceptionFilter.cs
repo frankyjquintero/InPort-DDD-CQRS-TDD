@@ -3,12 +3,21 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using InPort.Aplication.Core.Exceptions;
+using Microsoft.AspNetCore.Hosting;
 
 namespace InPort.WebUI.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class CustomExceptionFilterAttribute : ExceptionFilterAttribute
     {
+
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public CustomExceptionFilterAttribute(
+            IHostingEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
         public override void OnException(ExceptionContext context)
         {
             if (context.Exception is ValidationException)
@@ -30,11 +39,18 @@ namespace InPort.WebUI.Filters
 
             context.HttpContext.Response.ContentType = "application/json";
             context.HttpContext.Response.StatusCode = (int)code;
-            context.Result = new JsonResult(new
+            if (!_hostingEnvironment.IsDevelopment())
             {
-                error = new[] { context.Exception.Message },
-                stackTrace = context.Exception.StackTrace
-            });
+                context.Result = new JsonResult(new { error = new[] { context.Exception.Message } });
+            }
+            else
+            {
+                context.Result = new JsonResult(new
+                {
+                    error = new[] { context.Exception.Message },
+                    stackTrace = context.Exception.StackTrace
+                });
+            }            
         }
     }
 }

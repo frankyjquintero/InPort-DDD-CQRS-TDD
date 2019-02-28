@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using System;
 
 namespace InPort.Application.Customers.Commands.UpdateCustomer
 {
@@ -7,8 +8,7 @@ namespace InPort.Application.Customers.Commands.UpdateCustomer
         public UpdateCustomerCommandValidator()
         {
             RuleFor(c => c.Id)
-                .NotEqual("").WithMessage("Por favor, asegúrese de haber ingresado el Id");
-
+               .NotEqual(Guid.Empty).WithMessage("Por favor, asegúrese de haber ingresado el Id valido");
             RuleFor(c => c.FirstName)
                      .NotEmpty().WithMessage("Por favor, asegúrese de haber ingresado el nombre")
                      .Length(2, 150).WithMessage("El nombre debe tener entre 2 y 150 caracteres.");

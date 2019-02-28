@@ -29,7 +29,7 @@ namespace InPort.Application.Customers.Commands.DeleteCustomer
         {
             await Bus.Publish(new CustomerDeletedEvent(request.Id));
 
-            //throw new DeleteFailureException(nameof(Customer), request.Id, "There are existing orders associated with this customer.");
+            throw new DeleteFailureException(nameof(Customer), request.Id, "There are existing orders associated with this customer.");
             //var entity = await _customerRepository.GetAsync(request.Id);
 
             //if (entity == null)

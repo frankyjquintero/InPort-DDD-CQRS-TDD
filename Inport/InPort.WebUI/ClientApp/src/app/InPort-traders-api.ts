@@ -13,6 +13,123 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
+export interface IAccountClient {
+    login(model: LoginViewModel): Observable<FileResponse>;
+    register(model: RegisterViewModel): Observable<FileResponse>;
+}
+
+@Injectable()
+export class AccountClient implements IAccountClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    login(model: LoginViewModel): Observable<FileResponse> {
+        let url_ = this.baseUrl + "/api/Account/Login/account";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(model);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processLogin(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processLogin(<any>response_);
+                } catch (e) {
+                    return <Observable<FileResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processLogin(response: HttpResponseBase): Observable<FileResponse> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileResponse>(<any>null);
+    }
+
+    register(model: RegisterViewModel): Observable<FileResponse> {
+        let url_ = this.baseUrl + "/api/Account/Register/account/register";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(model);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processRegister(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processRegister(<any>response_);
+                } catch (e) {
+                    return <Observable<FileResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processRegister(response: HttpResponseBase): Observable<FileResponse> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileResponse>(<any>null);
+    }
+}
+
 export interface ICustomersClient {
     getAll(): Observable<CustomersListViewModel | null>;
     get(id: string | null): Observable<CustomerDetailModel | null>;
@@ -275,6 +392,94 @@ export class CustomersClient implements ICustomersClient {
     }
 }
 
+export class LoginViewModel implements ILoginViewModel {
+    email!: string;
+    password!: string;
+    rememberMe?: boolean;
+
+    constructor(data?: ILoginViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.email = data["email"];
+            this.password = data["password"];
+            this.rememberMe = data["rememberMe"];
+        }
+    }
+
+    static fromJS(data: any): LoginViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new LoginViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["email"] = this.email;
+        data["password"] = this.password;
+        data["rememberMe"] = this.rememberMe;
+        return data; 
+    }
+}
+
+export interface ILoginViewModel {
+    email: string;
+    password: string;
+    rememberMe?: boolean;
+}
+
+export class RegisterViewModel implements IRegisterViewModel {
+    email!: string;
+    password!: string;
+    confirmPassword?: string | undefined;
+
+    constructor(data?: IRegisterViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.email = data["email"];
+            this.password = data["password"];
+            this.confirmPassword = data["confirmPassword"];
+        }
+    }
+
+    static fromJS(data: any): RegisterViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new RegisterViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["email"] = this.email;
+        data["password"] = this.password;
+        data["confirmPassword"] = this.confirmPassword;
+        return data; 
+    }
+}
+
+export interface IRegisterViewModel {
+    email: string;
+    password: string;
+    confirmPassword?: string | undefined;
+}
+
 export class CustomersListViewModel implements ICustomersListViewModel {
     customers?: CustomerLookupModel[] | undefined;
 
@@ -435,11 +640,19 @@ export interface ICustomerDetailModel {
     region?: string | undefined;
 }
 
-export abstract class Message implements IMessage {
-    messageType?: string | undefined;
-    aggregateId?: string;
+export class CreateCustomerCommand implements ICreateCustomerCommand {
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    telephone?: string | undefined;
+    company?: string | undefined;
+    email?: string | undefined;
+    addressCity?: string | undefined;
+    addressZipCode?: string | undefined;
+    addressLine1?: string | undefined;
+    addressLine2?: string | undefined;
+    countryId?: string | undefined;
 
-    constructor(data?: IMessage) {
+    constructor(data?: ICreateCustomerCommand) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -450,65 +663,56 @@ export abstract class Message implements IMessage {
 
     init(data?: any) {
         if (data) {
-            this.messageType = data["messageType"];
-            this.aggregateId = data["aggregateId"];
+            this.firstName = data["firstName"];
+            this.lastName = data["lastName"];
+            this.telephone = data["telephone"];
+            this.company = data["company"];
+            this.email = data["email"];
+            this.addressCity = data["addressCity"];
+            this.addressZipCode = data["addressZipCode"];
+            this.addressLine1 = data["addressLine1"];
+            this.addressLine2 = data["addressLine2"];
+            this.countryId = data["countryId"];
         }
     }
 
-    static fromJS(data: any): Message {
+    static fromJS(data: any): CreateCustomerCommand {
         data = typeof data === 'object' ? data : {};
-        throw new Error("The abstract class 'Message' cannot be instantiated.");
+        let result = new CreateCustomerCommand();
+        result.init(data);
+        return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["messageType"] = this.messageType;
-        data["aggregateId"] = this.aggregateId;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["telephone"] = this.telephone;
+        data["company"] = this.company;
+        data["email"] = this.email;
+        data["addressCity"] = this.addressCity;
+        data["addressZipCode"] = this.addressZipCode;
+        data["addressLine1"] = this.addressLine1;
+        data["addressLine2"] = this.addressLine2;
+        data["countryId"] = this.countryId;
         return data; 
     }
 }
 
-export interface IMessage {
-    messageType?: string | undefined;
-    aggregateId?: string;
+export interface ICreateCustomerCommand {
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    telephone?: string | undefined;
+    company?: string | undefined;
+    email?: string | undefined;
+    addressCity?: string | undefined;
+    addressZipCode?: string | undefined;
+    addressLine1?: string | undefined;
+    addressLine2?: string | undefined;
+    countryId?: string | undefined;
 }
 
-export abstract class Command extends Message implements ICommand {
-    timestamp?: Date;
-    validationResult?: ValidationResult | undefined;
-
-    constructor(data?: ICommand) {
-        super(data);
-    }
-
-    init(data?: any) {
-        super.init(data);
-        if (data) {
-            this.timestamp = data["timestamp"] ? new Date(data["timestamp"].toString()) : <any>undefined;
-            this.validationResult = data["validationResult"] ? ValidationResult.fromJS(data["validationResult"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): Command {
-        data = typeof data === 'object' ? data : {};
-        throw new Error("The abstract class 'Command' cannot be instantiated.");
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["timestamp"] = this.timestamp ? this.timestamp.toISOString() : <any>undefined;
-        data["validationResult"] = this.validationResult ? this.validationResult.toJSON() : <any>undefined;
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface ICommand extends IMessage {
-    timestamp?: Date;
-    validationResult?: ValidationResult | undefined;
-}
-
-export abstract class CustomerCommand extends Command implements ICustomerCommand {
+export class UpdateCustomerCommand implements IUpdateCustomerCommand {
     id?: string;
     firstName?: string | undefined;
     lastName?: string | undefined;
@@ -519,14 +723,18 @@ export abstract class CustomerCommand extends Command implements ICustomerComman
     addressZipCode?: string | undefined;
     addressLine1?: string | undefined;
     addressLine2?: string | undefined;
-    countryId?: string;
+    countryId?: string | undefined;
 
-    constructor(data?: ICustomerCommand) {
-        super(data);
+    constructor(data?: IUpdateCustomerCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
     }
 
     init(data?: any) {
-        super.init(data);
         if (data) {
             this.id = data["id"];
             this.firstName = data["firstName"];
@@ -542,9 +750,11 @@ export abstract class CustomerCommand extends Command implements ICustomerComman
         }
     }
 
-    static fromJS(data: any): CustomerCommand {
+    static fromJS(data: any): UpdateCustomerCommand {
         data = typeof data === 'object' ? data : {};
-        throw new Error("The abstract class 'CustomerCommand' cannot be instantiated.");
+        let result = new UpdateCustomerCommand();
+        result.init(data);
+        return result;
     }
 
     toJSON(data?: any) {
@@ -560,12 +770,11 @@ export abstract class CustomerCommand extends Command implements ICustomerComman
         data["addressLine1"] = this.addressLine1;
         data["addressLine2"] = this.addressLine2;
         data["countryId"] = this.countryId;
-        super.toJSON(data);
         return data; 
     }
 }
 
-export interface ICustomerCommand extends ICommand {
+export interface IUpdateCustomerCommand {
     id?: string;
     firstName?: string | undefined;
     lastName?: string | undefined;
@@ -576,248 +785,14 @@ export interface ICustomerCommand extends ICommand {
     addressZipCode?: string | undefined;
     addressLine1?: string | undefined;
     addressLine2?: string | undefined;
-    countryId?: string;
+    countryId?: string | undefined;
 }
 
-export class CreateCustomerCommand extends CustomerCommand implements ICreateCustomerCommand {
-
-    constructor(data?: ICreateCustomerCommand) {
-        super(data);
-    }
-
-    init(data?: any) {
-        super.init(data);
-    }
-
-    static fromJS(data: any): CreateCustomerCommand {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateCustomerCommand();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface ICreateCustomerCommand extends ICustomerCommand {
-}
-
-/** The result of running a validator */
-export class ValidationResult implements IValidationResult {
-    /** Whether validation succeeded */
-    isValid?: boolean;
-    /** A collection of errors */
-    errors?: ValidationFailure[] | undefined;
-    ruleSetsExecuted?: string[] | undefined;
-
-    constructor(data?: IValidationResult) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.isValid = data["isValid"];
-            if (data["errors"] && data["errors"].constructor === Array) {
-                this.errors = [] as any;
-                for (let item of data["errors"])
-                    this.errors!.push(ValidationFailure.fromJS(item));
-            }
-            if (data["ruleSetsExecuted"] && data["ruleSetsExecuted"].constructor === Array) {
-                this.ruleSetsExecuted = [] as any;
-                for (let item of data["ruleSetsExecuted"])
-                    this.ruleSetsExecuted!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): ValidationResult {
-        data = typeof data === 'object' ? data : {};
-        let result = new ValidationResult();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["isValid"] = this.isValid;
-        if (this.errors && this.errors.constructor === Array) {
-            data["errors"] = [];
-            for (let item of this.errors)
-                data["errors"].push(item.toJSON());
-        }
-        if (this.ruleSetsExecuted && this.ruleSetsExecuted.constructor === Array) {
-            data["ruleSetsExecuted"] = [];
-            for (let item of this.ruleSetsExecuted)
-                data["ruleSetsExecuted"].push(item);
-        }
-        return data; 
-    }
-}
-
-/** The result of running a validator */
-export interface IValidationResult {
-    /** Whether validation succeeded */
-    isValid?: boolean;
-    /** A collection of errors */
-    errors?: ValidationFailure[] | undefined;
-    ruleSetsExecuted?: string[] | undefined;
-}
-
-/** Defines a validation failure */
-export class ValidationFailure implements IValidationFailure {
-    /** The name of the property. */
-    propertyName?: string | undefined;
-    /** The error message */
-    errorMessage?: string | undefined;
-    /** The property value that caused the failure. */
-    attemptedValue?: any | undefined;
-    /** Custom state associated with the failure. */
-    customState?: any | undefined;
-    /** Custom severity level associated with the failure. */
-    severity?: Severity;
-    /** Gets or sets the error code. */
-    errorCode?: string | undefined;
-    /** Gets or sets the formatted message arguments.
-These are values for custom formatted message in validator resource files
-Same formatted message can be reused in UI and with same number of format placeholders
-Like "Value {0} that you entered should be {1}" */
-    formattedMessageArguments?: any[] | undefined;
-    /** Gets or sets the formatted message placeholder values. */
-    formattedMessagePlaceholderValues?: { [key: string] : any; } | undefined;
-    /** The resource name used for building the message */
-    resourceName?: string | undefined;
-
-    constructor(data?: IValidationFailure) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.propertyName = data["propertyName"];
-            this.errorMessage = data["errorMessage"];
-            this.attemptedValue = data["attemptedValue"];
-            this.customState = data["customState"];
-            this.severity = data["severity"];
-            this.errorCode = data["errorCode"];
-            if (data["formattedMessageArguments"] && data["formattedMessageArguments"].constructor === Array) {
-                this.formattedMessageArguments = [] as any;
-                for (let item of data["formattedMessageArguments"])
-                    this.formattedMessageArguments!.push(item);
-            }
-            if (data["formattedMessagePlaceholderValues"]) {
-                this.formattedMessagePlaceholderValues = {} as any;
-                for (let key in data["formattedMessagePlaceholderValues"]) {
-                    if (data["formattedMessagePlaceholderValues"].hasOwnProperty(key))
-                        this.formattedMessagePlaceholderValues![key] = data["formattedMessagePlaceholderValues"][key];
-                }
-            }
-            this.resourceName = data["resourceName"];
-        }
-    }
-
-    static fromJS(data: any): ValidationFailure {
-        data = typeof data === 'object' ? data : {};
-        let result = new ValidationFailure();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["propertyName"] = this.propertyName;
-        data["errorMessage"] = this.errorMessage;
-        data["attemptedValue"] = this.attemptedValue;
-        data["customState"] = this.customState;
-        data["severity"] = this.severity;
-        data["errorCode"] = this.errorCode;
-        if (this.formattedMessageArguments && this.formattedMessageArguments.constructor === Array) {
-            data["formattedMessageArguments"] = [];
-            for (let item of this.formattedMessageArguments)
-                data["formattedMessageArguments"].push(item);
-        }
-        if (this.formattedMessagePlaceholderValues) {
-            data["formattedMessagePlaceholderValues"] = {};
-            for (let key in this.formattedMessagePlaceholderValues) {
-                if (this.formattedMessagePlaceholderValues.hasOwnProperty(key))
-                    data["formattedMessagePlaceholderValues"][key] = this.formattedMessagePlaceholderValues[key];
-            }
-        }
-        data["resourceName"] = this.resourceName;
-        return data; 
-    }
-}
-
-/** Defines a validation failure */
-export interface IValidationFailure {
-    /** The name of the property. */
-    propertyName?: string | undefined;
-    /** The error message */
-    errorMessage?: string | undefined;
-    /** The property value that caused the failure. */
-    attemptedValue?: any | undefined;
-    /** Custom state associated with the failure. */
-    customState?: any | undefined;
-    /** Custom severity level associated with the failure. */
-    severity?: Severity;
-    /** Gets or sets the error code. */
-    errorCode?: string | undefined;
-    /** Gets or sets the formatted message arguments.
-These are values for custom formatted message in validator resource files
-Same formatted message can be reused in UI and with same number of format placeholders
-Like "Value {0} that you entered should be {1}" */
-    formattedMessageArguments?: any[] | undefined;
-    /** Gets or sets the formatted message placeholder values. */
-    formattedMessagePlaceholderValues?: { [key: string] : any; } | undefined;
-    /** The resource name used for building the message */
-    resourceName?: string | undefined;
-}
-
-/** Specifies the severity of a rule. */
-export enum Severity {
-    Error = 0, 
-    Warning = 1, 
-    Info = 2, 
-}
-
-export class UpdateCustomerCommand extends CustomerCommand implements IUpdateCustomerCommand {
-
-    constructor(data?: IUpdateCustomerCommand) {
-        super(data);
-    }
-
-    init(data?: any) {
-        super.init(data);
-    }
-
-    static fromJS(data: any): UpdateCustomerCommand {
-        data = typeof data === 'object' ? data : {};
-        let result = new UpdateCustomerCommand();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        super.toJSON(data);
-        return data; 
-    }
-}
-
-export interface IUpdateCustomerCommand extends ICustomerCommand {
+export interface FileResponse {
+    data: Blob;
+    status: number;
+    fileName?: string;
+    headers?: { [name: string]: any };
 }
 
 export class SwaggerException extends Error {
