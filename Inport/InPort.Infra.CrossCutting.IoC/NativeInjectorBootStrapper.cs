@@ -4,6 +4,7 @@ using InPort.Aplication.Core;
 using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Domain.Core;
 using InPort.Domain.Core.Events;
+using InPort.Domain.Core.Notifications;
 using InPort.Infra.Core;
 using InPort.Infra.CrossCutting.Bus;
 using InPort.Infra.CrossCutting.Identity.Authorization;
@@ -44,6 +45,9 @@ namespace InPort.Infra.CrossCutting.IoC
             // Domain - Commands
             // Domain - Events => Pipeline de MediaR
             // Add MediatR
+
+            // Domain - Events
+            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));

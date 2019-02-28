@@ -51,6 +51,7 @@ namespace InPort.WebUI
                 .ConfigureLogging((hostingContext, logging) =>
                 {
                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    logging.AddSeq(hostingContext.Configuration.GetSection("Seq"));
                     logging.AddConsole();
                     logging.AddDebug();
                 })

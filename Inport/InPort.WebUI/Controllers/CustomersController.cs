@@ -3,8 +3,12 @@ using InPort.Application.Customers.Commands.DeleteCustomer;
 using InPort.Application.Customers.Commands.UpdateCustomer;
 using InPort.Application.Customers.Queries.GetCustomerDetail;
 using InPort.Application.Customers.Queries.GetCustomersList;
+using InPort.Domain.Core;
+using InPort.Domain.Core.Notifications;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
@@ -12,18 +16,27 @@ namespace InPort.WebUI.Controllers
 {
     public class CustomersController : BaseController
     {
+        public CustomersController(
+            INotificationHandler<DomainNotification> notifications,
+            ILoggerFactory loggerFactory,
+            IMediator mediator) : base(notifications, mediator, loggerFactory.CreateLogger<CustomersController>())
+        {
+
+        }
+
+
         // GET api/customers
         [HttpGet]
         public async Task<ActionResult<CustomersListViewModel>> GetAll()
         {
-            return Ok(await Mediator.Send(new GetCustomersListQuery()));
+            return Ok(await _mediator.Send(new GetCustomersListQuery()));
         }
 
         // GET api/customers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomerDetailModel>> Get(string id)
         {
-            return Ok(await Mediator.Send(new GetCustomerDetailQuery { Id = id }));
+            return Ok(await _mediator.Send(new GetCustomerDetailQuery { Id = id }));
         }
 
         // POST api/customers
@@ -32,7 +45,7 @@ namespace InPort.WebUI.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Create([FromBody]CreateCustomerCommand command)
         {
-            await Mediator.Send(command);
+            await _mediator.Send(command);
 
             return NoContent();
         }
@@ -43,7 +56,7 @@ namespace InPort.WebUI.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Update(string id, [FromBody]UpdateCustomerCommand command)
         {
-            await Mediator.Send(command);
+            await _mediator.Send(command);
 
             return NoContent();
         }
@@ -54,7 +67,7 @@ namespace InPort.WebUI.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await Mediator.Send(new DeleteCustomerCommand(id));
+            await _mediator.Send(new DeleteCustomerCommand(id));
 
             return NoContent();
         }

@@ -1,6 +1,7 @@
 ﻿using InPort.Domain.Core;
 using InPort.Domain.Core.Commands;
 using InPort.Domain.Core.Events;
+using InPort.Domain.Core.Querys;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,12 @@ namespace InPort.Infra.CrossCutting.Bus
             _mediator = mediator;
         }
 
-        public Task SendCommand<T>(T command) where T : Command
+        public Task<Unit> SendCommand<T>(T command) where T : Command
+        {
+            return _mediator.Send(command);
+        }
+
+        public Task<Unit> SendCommandQuery<T>(T command) where T : IRequest
         {
             return _mediator.Send(command);
         }

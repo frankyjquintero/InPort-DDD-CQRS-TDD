@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ValidationException = InPort.Aplication.Core.Exceptions.ValidationException;
 
 namespace InPort.Aplication.Core
 {
@@ -22,7 +21,7 @@ namespace InPort.Aplication.Core
         {
             ValidationContext context = new ValidationContext(request);
 
-            List<FluentValidation.Results.ValidationFailure> failures = _validators
+            var failures = _validators
                 .Select(v => v.Validate(context))
                 .SelectMany(result => result.Errors)
                 .Where(f => f != null)
@@ -30,7 +29,7 @@ namespace InPort.Aplication.Core
 
             if (failures.Count != 0)
             {
-                throw new ValidationException(failures);
+                throw new Exceptions.ValidationException(failures);
             }
 
             return next();
