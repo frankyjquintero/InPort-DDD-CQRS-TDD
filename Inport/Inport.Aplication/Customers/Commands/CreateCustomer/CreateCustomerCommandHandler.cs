@@ -1,7 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using InPort.Aplication.Core.Commands;
+using InPort.Aplication.Core.Exceptions;
+using InPort.Aplication.Customers.Events;
 using InPort.Domain;
+using InPort.Domain.AggregatesModel.CountryAgg;
+using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Domain.Core.Notifications;
 using InPort.Domain.Repositories;
 using MediatR;
@@ -22,8 +26,15 @@ namespace InPort.Aplication.Customers.Commands.CreateCustomer
 
         public async Task<Unit> Handle(CreateCustomerCommand message, CancellationToken cancellationToken)
         {
-            //var country = new Country();
-            //var customer = CustomerFactory.CreateCustomer(message.FirstName, message.LastName, message.Telephone, message.Company,);
+            var country = await Uow.Repository.CountryRepository
+                .SingleAsync(c => c.Id == message.CountryId);
+
+            if (country == null)
+                throw new NotFoundException(nameof(Country), message.CountryId);
+
+            var address = new  Address(message.AddressCity,message.AddressZipCode, message.AddressLine1, message.AddressLine2);
+
+            var customer = CustomerFactory.CreateCustomer(message.FirstName, message.LastName, message.Telephone, message.Company, message.Email, country, address);
 
             //if (_customerRepository.GetByEmail(customer.Email) != null)
             //{
@@ -31,12 +42,13 @@ namespace InPort.Aplication.Customers.Commands.CreateCustomer
             //    return Unit.Value;
             //}
 
-            //_customerRepository.Add(customer);
+            await Uow.Repository.CountryRepository.AddAsync(country);
 
-            //if (Commit())
-            //{
-            //    Bus.RaiseEvent(new CustomerRegisteredEvent(customer.Id, customer.Name, customer.Email, customer.BirthDate));
-            //}
+
+            if (await Uow.SaveChangesAsync())
+            {
+               await Bus.Publish(new CustomerCreatedEvent(customer.Id), cancellationToken);
+            }
 
             return Unit.Value;
         }

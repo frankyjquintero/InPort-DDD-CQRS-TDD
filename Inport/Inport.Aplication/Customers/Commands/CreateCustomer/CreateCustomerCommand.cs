@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 
 namespace InPort.Aplication.Customers.Commands.CreateCustomer
 {
@@ -13,6 +14,6 @@ namespace InPort.Aplication.Customers.Commands.CreateCustomer
         public string AddressZipCode { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
-        public string CountryId { get; set; }
+        public Guid CountryId { get; set; }
     }
 }
