@@ -1,7 +1,7 @@
-﻿using FluentValidation;
-using System;
+﻿using System;
+using FluentValidation;
 
-namespace InPort.Application.Customers.Commands.DeleteCustomer
+namespace InPort.Aplication.Customers.Commands.DeleteCustomer
 {
     public class DeleteCustomerCommandValidator : AbstractValidator<DeleteCustomerCommand>
     {

@@ -12,7 +12,7 @@ namespace InPort.Aplication.AutoMapper
             LoadConverters();
         }
 
-        private void LoadConverters()
+        private static void LoadConverters()
         {
 
         }

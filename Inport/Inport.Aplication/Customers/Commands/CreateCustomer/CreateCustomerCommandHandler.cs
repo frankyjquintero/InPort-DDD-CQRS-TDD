@@ -1,14 +1,12 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using InPort.Domain.AggregatesModel.CustomerAgg;
-using InPort.Domain.Core;
-using InPort.Domain.Core.Notifications;
 using InPort.Aplication.Core.Commands;
-using System;
-using InPort.Domain.AggregatesModel.CountryAgg;
+using InPort.Domain;
+using InPort.Domain.Core.Notifications;
+using InPort.Domain.Repositories;
+using MediatR;
 
-namespace InPort.Application.Customers.Commands.CreateCustomer
+namespace InPort.Aplication.Customers.Commands.CreateCustomer
 {
     public class CreateCustomerCommandHandler : CommandHandler, IRequestHandler<CreateCustomerCommand, Unit>
     {

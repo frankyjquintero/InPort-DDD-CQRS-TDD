@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace InPort.Application.Customers.Commands.CreateCustomer
+namespace InPort.Aplication.Customers.Commands.CreateCustomer
 {
     public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
     {

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace InPort.Application.Customers.Queries.GetCustomerDetail
+namespace InPort.Aplication.Customers.Queries.GetCustomerDetail
 {
     public class GetCustomerDetailQueryValidator : AbstractValidator<GetCustomerDetailQuery>
     {

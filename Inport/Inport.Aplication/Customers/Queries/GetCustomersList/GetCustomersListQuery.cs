@@ -1,7 +1,6 @@
-﻿using InPort.Domain.Core.Querys;
-using MediatR;
+﻿using MediatR;
 
-namespace InPort.Application.Customers.Queries.GetCustomersList
+namespace InPort.Aplication.Customers.Queries.GetCustomersList
 {
     public class GetCustomersListQuery : IRequest<CustomersListViewModel>
     {

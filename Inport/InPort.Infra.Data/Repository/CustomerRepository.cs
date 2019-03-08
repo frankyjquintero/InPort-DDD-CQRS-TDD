@@ -1,23 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using InPort.Domain.AggregatesModel.CustomerAgg;
+using InPort.Domain.Repositories;
 using InPort.Infra.Data.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace InPort.Infra.Data.Repository
 {
-    public class CustomerRepository : Repository<Customer>, ICustomerRepository
+    public class CustomerRepository :  GenericRepository<Customer>, ICustomerRepository
     {
-        public CustomerRepository(InPortDbContext context)
-            : base(context)
-        {
 
+        public CustomerRepository(
+            InPortDbContext context
+        ): base(context)
+        {
+        }
+
+        public IEnumerable<Customer> GetEnabled(int pageIndex, int pageCount)
+        {
+   
+
+            return Context.Customers
+                .Where(c => c.IsEnabled == true)
+                .OrderBy(c => c.FullName)
+                .Skip(pageIndex * pageCount)
+                .Take(pageCount);
         }
 
         public Customer GetByEmail(string email)
         {
-            return DbSet.AsNoTracking().FirstOrDefault(c => c.Email == email);
+            throw new System.NotImplementedException();
         }
-
-      }
+    }
 }

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using InPort.Infra.Data.Context;
 using MediatR;
 
-namespace InPort.Application.Customers.Commands.UpdateCustomer
+namespace InPort.Aplication.Customers.Commands.UpdateCustomer
 {
     public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, Unit>
     {

@@ -15,6 +15,7 @@
     <ProjectReference Include="..\InPort.Aplication.Core\InPort.Aplication.Core.csproj" />
     <ProjectReference Include="..\InPort.Aplication\InPort.Aplication.csproj" />
     <ProjectReference Include="..\InPort.Domain.Core\InPort.Domain.Core.csproj" />
+    <ProjectReference Include="..\InPort.Domain\InPort.Domain.csproj" />
     <ProjectReference Include="..\InPort.Infra.Core\InPort.Infra.Core.csproj" />
     <ProjectReference Include="..\InPort.Infra.CrossCutting.Bus\InPort.Infra.CrossCutting.Bus.csproj" />
     <ProjectReference Include="..\InPort.Infra.CrossCutting.Identity\InPort.Infra.CrossCutting.Identity.csproj" />

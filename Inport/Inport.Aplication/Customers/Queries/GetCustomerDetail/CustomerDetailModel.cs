@@ -1,8 +1,8 @@
-﻿using InPort.Domain.AggregatesModel.CustomerAgg;
-using System;
+﻿using System;
 using System.Linq.Expressions;
+using InPort.Domain.AggregatesModel.CustomerAgg;
 
-namespace InPort.Application.Customers.Queries.GetCustomerDetail
+namespace InPort.Aplication.Customers.Queries.GetCustomerDetail
 {
     public class CustomerDetailModel
     {

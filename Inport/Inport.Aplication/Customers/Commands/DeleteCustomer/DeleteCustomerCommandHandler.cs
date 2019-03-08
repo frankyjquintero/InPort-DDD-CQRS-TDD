@@ -1,15 +1,15 @@
-﻿using InPort.Aplication.Core.Commands;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using InPort.Aplication.Core.Commands;
 using InPort.Aplication.Core.Exceptions;
 using InPort.Aplication.Customers.Events;
-using InPort.Application.Customers.Events;
+using InPort.Domain;
 using InPort.Domain.AggregatesModel.CustomerAgg;
-using InPort.Domain.Core;
 using InPort.Domain.Core.Notifications;
+using InPort.Domain.Repositories;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace InPort.Application.Customers.Commands.DeleteCustomer
+namespace InPort.Aplication.Customers.Commands.DeleteCustomer
 {
     public class DeleteCustomerCommandHandler : CommandHandler, IRequestHandler<DeleteCustomerCommand>
     {

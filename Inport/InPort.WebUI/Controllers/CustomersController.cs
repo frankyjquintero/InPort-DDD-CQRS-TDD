@@ -1,8 +1,3 @@
-using InPort.Application.Customers.Commands.CreateCustomer;
-using InPort.Application.Customers.Commands.DeleteCustomer;
-using InPort.Application.Customers.Commands.UpdateCustomer;
-using InPort.Application.Customers.Queries.GetCustomerDetail;
-using InPort.Application.Customers.Queries.GetCustomersList;
 using InPort.Domain.Core;
 using InPort.Domain.Core.Notifications;
 using MediatR;
@@ -11,6 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using InPort.Aplication.Customers.Commands.CreateCustomer;
+using InPort.Aplication.Customers.Commands.DeleteCustomer;
+using InPort.Aplication.Customers.Commands.UpdateCustomer;
+using InPort.Aplication.Customers.Queries.GetCustomerDetail;
+using InPort.Aplication.Customers.Queries.GetCustomersList;
 
 namespace InPort.WebUI.Controllers
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace InPort.Application.Customers.Queries.GetCustomersList
+namespace InPort.Aplication.Customers.Queries.GetCustomersList
 {
     public class CustomersListViewModel
     {

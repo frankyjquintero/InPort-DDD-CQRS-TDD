@@ -1,10 +1,10 @@
-﻿using InPort.Domain.Core.Events;
-using MediatR;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using InPort.Domain.Core.Events;
+using MediatR;
 
-namespace InPort.Application.Customers.Events
+namespace InPort.Aplication.Customers.Events
 {
     public class CustomerCreatedEvent : Event
     {

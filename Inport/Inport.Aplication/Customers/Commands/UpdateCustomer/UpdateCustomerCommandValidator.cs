@@ -1,7 +1,7 @@
-﻿using FluentValidation;
-using System;
+﻿using System;
+using FluentValidation;
 
-namespace InPort.Application.Customers.Commands.UpdateCustomer
+namespace InPort.Aplication.Customers.Commands.UpdateCustomer
 {
     public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCommand>
     {

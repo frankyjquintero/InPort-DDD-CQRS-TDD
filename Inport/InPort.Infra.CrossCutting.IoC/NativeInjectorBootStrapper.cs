@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using InPort.Aplication;
 using InPort.Aplication.Core;
-using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Domain.Core;
 using InPort.Domain.Core.Events;
 using InPort.Domain.Core.Notifications;
@@ -15,17 +14,19 @@ using InPort.Infra.Data.Context;
 using InPort.Infra.Data.EventSourcing;
 using InPort.Infra.Data.Repository;
 using InPort.Infra.Data.Repository.EventSourcing;
-using InPort.Infra.Data.UoW;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using InPort.Domain.Repositories;
+using InPort.Infra.Data.UnitOfWork;
+using InPort.Domain;
 
 namespace InPort.Infra.CrossCutting.IoC
 {
-    public class NativeInjectorBootStrapper
+    public static class NativeInjectorBootStrapper
     {
         public static void RegisterServices(IServiceCollection services)
         {
@@ -56,7 +57,7 @@ namespace InPort.Infra.CrossCutting.IoC
 
             // Infra - Data
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWorkContainer>();
             services.AddScoped<InPortDbContext>();
 
 

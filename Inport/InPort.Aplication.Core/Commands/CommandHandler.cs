@@ -1,4 +1,4 @@
-﻿using InPort.Domain.Core;
+﻿using InPort.Domain;
 using InPort.Domain.Core.Notifications;
 using MediatR;
 
@@ -11,7 +11,7 @@ namespace InPort.Aplication.Core.Commands
         private readonly IMediator _bus;
         //private readonly DomainNotificationHandler _notifications;
 
-        public CommandHandler(IUnitOfWork uow, IMediator bus, INotificationHandler<DomainNotification> notifications)
+        protected CommandHandler(IUnitOfWork uow, IMediator bus, INotificationHandler<DomainNotification> notifications)
         {
             _uow = uow;
             //_notifications = (DomainNotificationHandler)notifications;
@@ -28,8 +28,8 @@ namespace InPort.Aplication.Core.Commands
 
         public bool Commit()
         {
-            //if (_notifications.HasNotifications()) return false;
-            if (_uow.Commit()) return true;
+
+            if (_uow.SaveChanges()) return true;
 
             _bus.Publish(new DomainNotification("Commit", "Tuvimos un problema al guardar tus datos."));
             return false;

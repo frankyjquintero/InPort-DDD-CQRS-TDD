@@ -1,8 +1,6 @@
-﻿using InPort.Aplication.Core.Commands;
-using MediatR;
-using System;
+﻿using MediatR;
 
-namespace InPort.Application.Customers.Commands.CreateCustomer
+namespace InPort.Aplication.Customers.Commands.CreateCustomer
 {
     public class CreateCustomerCommand : IRequest
     {

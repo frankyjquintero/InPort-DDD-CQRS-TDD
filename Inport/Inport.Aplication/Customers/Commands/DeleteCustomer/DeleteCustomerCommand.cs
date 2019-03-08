@@ -1,8 +1,7 @@
-﻿using InPort.Aplication.Core.Commands;
+﻿using System;
 using MediatR;
-using System;
 
-namespace InPort.Application.Customers.Commands.DeleteCustomer
+namespace InPort.Aplication.Customers.Commands.DeleteCustomer
 {
     public class DeleteCustomerCommand : IRequest
     {

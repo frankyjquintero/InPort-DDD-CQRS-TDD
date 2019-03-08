@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 using InPort.Infra.Data.Context;
 using MediatR;
 
-
-namespace InPort.Application.Customers.Queries.GetCustomerDetail
+namespace InPort.Aplication.Customers.Queries.GetCustomerDetail
 {
     public class GetCustomerDetailQueryHandler : IRequestHandler<GetCustomerDetailQuery, CustomerDetailModel>
     {

@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InPort.Domain.Core\InPort.Domain.Core.csproj" />
+    <ProjectReference Include="..\InPort.Domain\InPort.Domain.csproj" />
     <ProjectReference Include="..\InPort.Infra.CrossCutting.Bus\InPort.Infra.CrossCutting.Bus.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,6 @@
-﻿using InPort.Domain.Core.Querys;
-using MediatR;
+﻿using MediatR;
 
-namespace InPort.Application.Customers.Queries.GetCustomerDetail
+namespace InPort.Aplication.Customers.Queries.GetCustomerDetail
 {
     public class GetCustomerDetailQuery : IRequest<CustomerDetailModel>
     {

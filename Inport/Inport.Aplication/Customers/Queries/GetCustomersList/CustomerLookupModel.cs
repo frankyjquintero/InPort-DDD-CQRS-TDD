@@ -2,7 +2,7 @@
 using InPort.Application.Core.Interfaces.Mapping;
 using InPort.Domain.AggregatesModel.CustomerAgg;
 
-namespace InPort.Application.Customers.Queries.GetCustomersList
+namespace InPort.Aplication.Customers.Queries.GetCustomersList
 {
     public class CustomerLookupModel : IHaveCustomMapping
     {
