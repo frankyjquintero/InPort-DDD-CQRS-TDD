@@ -85,7 +85,7 @@ namespace InPort.Domain.Test
             country.GenerateNewIdentity();
 
             //Act
-            var customer = CustomerFactory.CreateCustomer(firstName, lastName, telephone, company, country, new Address("city", "zipcode", "AddressLine1", "AddressLine2"));
+            var customer = CustomerFactory.CreateCustomer(firstName, lastName, telephone, company, "email@email.com", country, new Address("city", "zipcode", "AddressLine1", "AddressLine2"));
            
 
             //Assert
@@ -111,7 +111,7 @@ namespace InPort.Domain.Test
             country.GenerateNewIdentity();
 
             //Act
-            var customer = CustomerFactory.CreateCustomer(firstName, lastName, telephone, company, country, new Address("city", "zipcode", "AddressLine1", "AddressLine2"));
+            var customer = CustomerFactory.CreateCustomer(firstName, lastName, telephone, company, "email@email.com", country, new Address("city", "zipcode", "AddressLine1", "AddressLine2"));
 
 
             //Assert

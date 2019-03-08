@@ -76,27 +76,27 @@ namespace InPort.Infra.Data.Seeds
             //Customers
 
             //Cesar Torres
-            var customer1 = CustomerFactory.CreateCustomer("Cesar", "Torres", "+34 1234567", "Microsoft", spain, new Address("Madrid", "28700", "Calle Club Deportivo 1", "Parque Empresarial La Finca, Edif. 1"));
+            var customer1 = CustomerFactory.CreateCustomer("Cesar", "Torres", "+34 1234567", "Microsoft", "email1@email.com", spain, new Address("Madrid", "28700", "Calle Club Deportivo 1", "Parque Empresarial La Finca, Edif. 1"));
             customer1.SetTheCountryReference(spain.Id);
             context.Customers.Add(customer1);
 
             //Unai Zorrilla
-            var customer2 = CustomerFactory.CreateCustomer("Unai", "Zorrilla", "+34 1234567", "Plain Concepts", spain, new Address("Madrid", "12345", "Calle Plain", "Barrio San Chinarro"));
+            var customer2 = CustomerFactory.CreateCustomer("Unai", "Zorrilla", "+34 1234567", "Plain Concepts", "email2@email.com", spain, new Address("Madrid", "12345", "Calle Plain", "Barrio San Chinarro"));
             customer2.SetTheCountryReference(spain.Id);
             context.Customers.Add(customer2);
 
             //Miguel Angel
-            var customer3 = CustomerFactory.CreateCustomer("Miguel Angel", "Ramos", "+1 1234567", "Microsoft", us, new Address("Redmond", "12345", "One Microsoft Way", "Building X"));
+            var customer3 = CustomerFactory.CreateCustomer("Miguel Angel", "Ramos", "+1 1234567", "Microsoft", "email3@email.com", us, new Address("Redmond", "12345", "One Microsoft Way", "Building X"));
             customer3.SetTheCountryReference(us.Id);
             context.Customers.Add(customer3);
 
             //Erica Vansas          
-            var customer4 = CustomerFactory.CreateCustomer("Erica", "Vansas", "+1 1234567", "Domain Language", us, new Address("City", "12345", "DDD Street", "Building X"));
+            var customer4 = CustomerFactory.CreateCustomer("Erica", "Vansas", "+1 1234567", "Domain Language", "email4@email.com", us, new Address("City", "12345", "DDD Street", "Building X"));
             customer4.SetTheCountryReference(us.Id);
             context.Customers.Add(customer4);
 
             //César Castro            
-            var customer5 = CustomerFactory.CreateCustomer("César", "Castro", "+34 1234567", "Freelance", spain, new Address("Madrid", "12345", "Calle de Madrid", "Barrio de Madrid"));
+            var customer5 = CustomerFactory.CreateCustomer("César", "Castro", "+34 1234567", "Freelance", "email5@email.com", spain, new Address("Madrid", "12345", "Calle de Madrid", "Barrio de Madrid"));
             customer5.SetTheCountryReference(spain.Id);
             context.Customers.Add(customer5);
 

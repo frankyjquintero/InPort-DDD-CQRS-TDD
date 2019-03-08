@@ -14,7 +14,7 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
     public static class CustomerFactory
     {
 
-        public static Customer CreateCustomer(string firstName, string lastName, string telephone, string company, Country country, Address address)
+        public static Customer CreateCustomer(string firstName, string lastName, string telephone, string company, string email, Country country, Address address)
         {
             //crear nueva instancia y establecer identidad
             var customer = new Customer();
@@ -27,6 +27,7 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
             customer.LastName = lastName;
 
             customer.Company = company;
+            customer.Email = email;
             customer.Telephone = telephone;
 
             //establecer direccion
