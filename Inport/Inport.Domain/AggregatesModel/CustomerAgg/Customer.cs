@@ -6,13 +6,10 @@ using System.Collections.Generic;
 
 namespace InPort.Domain.AggregatesModel.CustomerAgg
 {
-    public class Customer 
+    public sealed class Customer 
         : Entity
     {
-        #region Members
 
-        bool _IsEnabled;
-        #endregion
 
         #region Properties
 
@@ -22,14 +19,7 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
         public string LastName { get; set; }
 
 
-        public string FullName
-        {
-            get
-            {
-                return string.Format("{0}, {1}", this.LastName, this.FirstName);
-            }
-
-        }
+        public string FullName => $"{this.LastName}, {this.FirstName}";
 
         public string Telephone { get; set; }
         public string Company { get; set; }
@@ -41,17 +31,7 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
         /// <summary>
         /// Get or set if this customer is enabled
         /// </summary>
-        public bool IsEnabled
-        {
-            get
-            {
-                return _IsEnabled;
-            }
-            private set
-            {
-                _IsEnabled = value;
-            }
-        }
+        public bool IsEnabled { get; private set; }
 
 
         /// <summary>
@@ -62,7 +42,7 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
         /// <summary>
         /// Obtén el país actual para este cliente.
         /// </summary>
-        public virtual Country Country { get; private set; }
+        public Country Country { get; private set; }
 
         /// <summary>
         /// Obtener o configurar foto asociada para este cliente.
@@ -85,7 +65,7 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
         public void Disable()
         {
             if (IsEnabled)
-                this._IsEnabled = false;
+                this.IsEnabled = false;
         }
 
         /// <summary>
@@ -94,7 +74,7 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
         public void Enable()
         {
             if (!IsEnabled)
-                this._IsEnabled = true;
+                this.IsEnabled = true;
         }
 
         /// <summary>
@@ -122,19 +102,15 @@ namespace InPort.Domain.AggregatesModel.CustomerAgg
         /// <param name="countryId"></param>
         public void SetTheCountryReference(Guid countryId)
         {
-            if (countryId != Guid.Empty)
-            {
-                //fix relation
-                this.CountryId = countryId;
-
-                this.Country = null;
-            }
+            if (countryId == Guid.Empty) return;
+            //fix relation
+            this.CountryId = countryId;
+            this.Country = null;
         }
 
         public void ChangePicture(Picture picture)
         {
-            if (picture != null &&
-                !picture.IsTransient())
+            if (picture != null && !picture.IsTransient())
             {
                 this.Picture = picture;
             }

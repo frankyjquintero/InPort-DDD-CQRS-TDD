@@ -1,17 +1,4 @@
 {
-  "name": "InPort.WebUI",
-  "version": "0.0.0",
-  "license": "MIT",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --extract-css",
-    "build:ssr": "npm run build -- --app=ssr --output-hashing=media",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^6.1.10",
     "@angular/common": "^6.1.10",
@@ -54,7 +41,20 @@
     "tslint": "~5.9.1",
     "typescript": "~2.9.2"
   },
+  "license": "MIT",
+  "name": "InPortWebUI",
   "optionalDependencies": {
     "node-sass": "^4.9.0"
-  }
+  },
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build --extract-css",
+    "build:ssr": "npm run build -- --app=ssr --output-hashing=media",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "version": "0.0.0"
 }
