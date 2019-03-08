@@ -25,7 +25,7 @@ namespace InPort.Aplication.Customers.Commands.UpdateCustomer
 
 
             RuleFor(c => c.CountryId)
-                .NotEqual("");
+                .NotEqual(Guid.Empty).WithMessage("Por favor, asegúrese de haber ingresado el pais valido");
         }
 
     }

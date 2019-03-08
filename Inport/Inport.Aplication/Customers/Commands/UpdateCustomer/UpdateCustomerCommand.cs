@@ -15,7 +15,8 @@ namespace InPort.Aplication.Customers.Commands.UpdateCustomer
         public string AddressZipCode { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
-        public string CountryId { get; set; }
+        public Guid CountryId { get; set; }
+        public byte[] PictureByte { get; set; }
 
     }
 }
