@@ -22,35 +22,35 @@ namespace InPort.Aplication.Customers.Commands.UpdateCustomer
         {
         }
 
-        public async Task<Unit> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateCustomerCommand message, CancellationToken cancellationToken)
         {
             var entity = await Uow.Repository.CustomerRepository
-                .SingleAsync(c => c.Id == request.Id);
+                .SingleAsync(c => c.Id == message.Id);
 
             if (entity == null)
-                throw new NotFoundException(nameof(Customer), request.Id);
+                throw new NotFoundException(nameof(Customer), message.Id);
 
-            var address = new Address(request.AddressCity, request.AddressZipCode, request.AddressLine1,
-                request.AddressLine2);
+            var address = new Address(message.AddressCity, message.AddressZipCode, message.AddressLine1,
+                message.AddressLine2);
             entity.Address = address;
 
-            entity.Company = request.Company;
-            entity.FirstName = request.FirstName;
-            entity.LastName = request.LastName;
+            entity.Company = message.Company;
+            entity.FirstName = message.FirstName;
+            entity.LastName = message.LastName;
 
             var country = await Uow.Repository.CountryRepository
-                .SingleAsync(c => c.Id == request.CountryId);
+                .SingleAsync(c => c.Id == message.CountryId);
             if (country == null)
-                throw new NotFoundException(nameof(Country), request.Id);
+                throw new NotFoundException(nameof(Country), message.CountryId);
 
             entity.SetTheCountryForThisCustomer(country);
 
-            entity.Company = request.Company;
-            entity.Email = request.Email;
-            entity.Telephone = request.Telephone;
+            entity.Company = message.Company;
+            entity.Email = message.Email;
+            entity.Telephone = message.Telephone;
             var picture = new Picture
             {
-                RawPhoto = request.PictureByte
+                RawPhoto = message.PictureByte
             };
             entity.ChangePicture(picture);
 
