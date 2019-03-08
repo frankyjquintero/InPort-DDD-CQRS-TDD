@@ -1,17 +1,22 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using InPort.Aplication.Core.Commands;
+using InPort.Domain;
+using InPort.Domain.Core.Notifications;
 using InPort.Infra.Data.Context;
 using MediatR;
 
 namespace InPort.Aplication.Customers.Commands.UpdateCustomer
 {
-    public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, Unit>
+    public class UpdateCustomerCommandHandler : CommandHandler, IRequestHandler<UpdateCustomerCommand, Unit>
     {
-        private readonly InPortDbContext _context;
 
-        public UpdateCustomerCommandHandler(InPortDbContext context)
+
+        public UpdateCustomerCommandHandler(
+            IUnitOfWork uow,
+            IMediator bus,
+            INotificationHandler<DomainNotification> notifications) : base(uow, bus, notifications)
         {
-            _context = context;
         }
 
         public async Task<Unit> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)

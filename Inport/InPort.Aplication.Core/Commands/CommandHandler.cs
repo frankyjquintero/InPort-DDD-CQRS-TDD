@@ -7,15 +7,15 @@ namespace InPort.Aplication.Core.Commands
 {
     public class CommandHandler
     {
-        private readonly IUnitOfWork _uow;
-        private readonly IMediator _bus;
+        protected readonly IUnitOfWork Uow;
+        protected readonly IMediator Bus;
         //private readonly DomainNotificationHandler _notifications;
 
         protected CommandHandler(IUnitOfWork uow, IMediator bus, INotificationHandler<DomainNotification> notifications)
         {
-            _uow = uow;
+            Uow = uow;
             //_notifications = (DomainNotificationHandler)notifications;
-            _bus = bus;
+            Bus = bus;
         }
 
         //protected void NotifyValidationErrors(Command message)
@@ -29,9 +29,9 @@ namespace InPort.Aplication.Core.Commands
         public bool Commit()
         {
 
-            if (_uow.SaveChanges()) return true;
+            if (Uow.SaveChanges()) return true;
 
-            _bus.Publish(new DomainNotification("Commit", "Tuvimos un problema al guardar tus datos."));
+            Bus.Publish(new DomainNotification("Commit", "Tuvimos un problema al guardar tus datos."));
             return false;
         }
     }

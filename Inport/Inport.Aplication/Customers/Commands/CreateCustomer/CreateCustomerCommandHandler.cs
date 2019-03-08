@@ -11,16 +11,13 @@ namespace InPort.Aplication.Customers.Commands.CreateCustomer
     public class CreateCustomerCommandHandler : CommandHandler, IRequestHandler<CreateCustomerCommand, Unit>
     {
 
-        private readonly ICustomerRepository _customerRepository;
-        private readonly IMediator Bus;
-
-        public CreateCustomerCommandHandler(ICustomerRepository customerRepository,
+ 
+        public CreateCustomerCommandHandler(
                                       IUnitOfWork uow,
                                       IMediator bus,
-                                      INotificationHandler<DomainNotification> notifications) : base(uow, bus, notifications)
+                                      INotificationHandler<DomainNotification> notifications) 
+            : base(uow, bus, notifications)
         {
-            _customerRepository = customerRepository; 
-            Bus = bus;
         }
 
         public async Task<Unit> Handle(CreateCustomerCommand message, CancellationToken cancellationToken)

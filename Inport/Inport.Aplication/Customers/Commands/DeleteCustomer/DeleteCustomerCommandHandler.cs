@@ -13,21 +13,19 @@ namespace InPort.Aplication.Customers.Commands.DeleteCustomer
 {
     public class DeleteCustomerCommandHandler : CommandHandler, IRequestHandler<DeleteCustomerCommand>
     {
-        private readonly ICustomerRepository _customerRepository;
-        private readonly IMediator Bus;
 
-        public DeleteCustomerCommandHandler(ICustomerRepository customerRepository,
+
+
+        public DeleteCustomerCommandHandler(
                                       IUnitOfWork uow,
                                       IMediator bus,
                                       INotificationHandler<DomainNotification> notifications) : base(uow, bus, notifications)
         {
-            _customerRepository = customerRepository;
-            Bus = bus;
         }
 
         public async Task<Unit> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
         {
-            await Bus.Publish(new CustomerDeletedEvent(request.Id));
+            await Bus.Publish(new CustomerDeletedEvent(request.Id), cancellationToken);
 
             throw new DeleteFailureException(nameof(Customer), request.Id, "There are existing orders associated with this customer.");
             //var entity = await _customerRepository.GetAsync(request.Id);
