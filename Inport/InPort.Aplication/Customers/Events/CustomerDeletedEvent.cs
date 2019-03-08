@@ -5,7 +5,7 @@ using System.Text;
 
 namespace InPort.Aplication.Customers.Events
 {
-    class CustomerDeletedEvent : Event
+    public class CustomerDeletedEvent : Event
     {
         public Guid CustomerId { get; private set; }
 

@@ -23,28 +23,21 @@ namespace InPort.Aplication.Customers.Commands.DeleteCustomer
         {
         }
 
-        public async Task<Unit> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteCustomerCommand message, CancellationToken cancellationToken)
         {
-            await Bus.Publish(new CustomerDeletedEvent(request.Id), cancellationToken);
+            
+            var entity = await Uow.Repository.CustomerRepository
+                .SingleAsync(c => c.Id == message.Id);
 
-            throw new DeleteFailureException(nameof(Customer), request.Id, "There are existing orders associated with this customer.");
-            //var entity = await _customerRepository.GetAsync(request.Id);
+            if (entity == null)
+                throw new NotFoundException(nameof(Customer), message.Id);
 
-            //if (entity == null)
-            //{
-            //   await Bus.RaiseEvent(new DomainNotification(request.MessageType, "The customer NotFoundException."));
-            //}
+            entity.Disable();
 
-            //var hasOrders = _context.Orders.Any(o => o.CustomerId == entity.CustomerId);
-            //if (hasOrders)
-            //{
-            //    throw new DeleteFailureException(nameof(Customer), request.Id, "There are existing orders associated with this customer.");
-            //}
+            Uow.Repository.CustomerRepository.Update(entity);
+            await Uow.SaveChangesAsync();
 
-            //_context.Customers.Remove(entity);
-            //await _customerRepository.Remove(entity);
-
-            //await _context.SaveChangesAsync(cancellationToken);
+            await Bus.Publish(new CustomerDeletedEvent(message.Id), cancellationToken);
 
             return Unit.Value;
         }
