@@ -6,5 +6,8 @@ namespace InPort.Domain
     {
         ICustomerRepository CustomerRepository { get; }
         ICountryRepository CountryRepository { get; }
+        IMeasurentUnitRepository MeasurentUnitRepository { get; }
+        IOrderIncomeRepository OrderIncomeRepository { get; }
+        IProductRepository ProductRepository { get; }
     }
 }
