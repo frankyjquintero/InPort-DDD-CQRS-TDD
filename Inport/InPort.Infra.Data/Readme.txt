@@ -10,3 +10,5 @@ Remove-Migration.
 Update-Database LastGoodMigration.
 
 
+Add-Migration AddOrderIncome -Context InPortDbContext -OutputDir Migrations\
+Update-Database -Context InPortDbContext
