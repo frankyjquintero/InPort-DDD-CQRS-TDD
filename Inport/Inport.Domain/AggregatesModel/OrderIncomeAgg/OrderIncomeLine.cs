@@ -1,95 +1,79 @@
-﻿using InPort.Domain.AggregatesModel.ProductAgg;
+﻿using InPort.Domain.AggregatesModel.MeasurentUnitAgg;
+using InPort.Domain.AggregatesModel.ProductAgg;
 using InPort.Domain.Core.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace InPort.Domain.AggregatesModel.OrderIncomeAgg
 {
     public class OrderIncomeLine
-        : Entity, IValidatableObject
+        : Entity
     {
-        #region Members
-        //ILocalization messages;
-        #endregion
+
 
         #region Properties
 
+        public Guid OrderIncomeId { get; private set; }
+        public Guid ProductId { get; private set; }
+        public string ProductName { get; private set; }
 
-        /// <summary>
-        /// Obtén o establece la cantidad de unidades en esta línea.
-        /// </summary>
-        public int Amount { get; set; }
-        /// <summary>
-        /// Relaciona la unidad de medida en esta línea con base a las elejibles para el producto.
-        /// </summary>
-        public string MeasurentUnit { get; private set; }
+        public Guid MeasurentUnitId { get; private set; }
+        public string MeasurentUnitName { get; private set; }
 
-        /// <summary>
-        /// Related aggregate identifier
-        /// </summary>
-        public Guid OrderId { get; set; }
+        public int Amount { get; private set; }
 
-        /// <summary>
-        /// Get or set the product identifier
-        /// </summary>
-        public Guid ProductId { get; set; }
-
-        /// <summary>
-        /// Get or set associated product 
-        /// </summary>
-        public Product Product { get; private set; }
+        public OrderIncome OrderIncome { get; set; }
+        public Product Product { get; set; }
+        public MeasurentUnit MeasurentUnit { get; set; }
 
         #endregion
 
         #region Constructor
         public OrderIncomeLine()
         {
-            //messages = LocalizationFactory.CreateLocalResources();
-        }
 
+        }
+        public OrderIncomeLine(Guid orderIncomeId, Product product, MeasurentUnit measurentUnit, int amount)
+        {
+            if (product == null || product.IsTransient())
+            {
+                throw new ArgumentNullException(nameof(product));
+            }
+            if (measurentUnit == null || measurentUnit.IsTransient())
+            {
+                throw new ArgumentNullException(nameof(measurentUnit));
+            }
+
+            OrderIncomeId = orderIncomeId;
+            ProductId = product.Id;
+            ProductName = product.Name;
+            MeasurentUnitId = measurentUnit.Id;
+            MeasurentUnitName = measurentUnit.Name;
+            Amount = amount;
+        }
         #endregion
         #region Public Methods
 
-
-        public void SetProduct(Product product, string measurentUnit)
+        public void SetAmount(int amount)
         {
-            if (product == null
-                ||
-                product.IsTransient())
+            if (amount < 0)
             {
-                throw new ArgumentNullException("No puede establecer un producto nulo o transitorio");
+                throw new Exception("Invalid amount");
             }
-            //fix identifiers
-            this.ProductId = product.Id;
-            this.Product = product;
-            this.MeasurentUnit = measurentUnit;
+            Amount = amount;
         }
-  
-
-        #endregion
-
-        #region IValidatableObject Members
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public void AddAmount(int amount)
         {
-            var validationResults = new List<ValidationResult>();
-
-            
-            if (OrderId == Guid.Empty)
-                validationResults.Add(new ValidationResult("El OrderId no puede ser nulo o vacio",
-                                                           new string[] { "OrderId" }));
-
-            
-
-            if (ProductId == Guid.Empty)
-                validationResults.Add(new ValidationResult("El productId no puede ser nulo o vacio",
-                                                         new string[] { "ProductId" }));
-
-            return validationResults;
+            if (amount < 0)
+            {
+                throw new Exception("Invalid amount");
+            }
+            Amount += amount;
         }
 
+
+
         #endregion
+
+
     }
 }

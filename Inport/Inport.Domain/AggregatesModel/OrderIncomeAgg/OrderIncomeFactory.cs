@@ -16,11 +16,13 @@ namespace InPort.Domain.AggregatesModel.OrderIncomeAgg
         public static OrderIncome CreateOrder(Customer customer)
         {
             //create the order
-            var order = new OrderIncome();
+            var order = new OrderIncome
+            {
 
-            
-            //set default values
-            order.OrderDate = DateTime.UtcNow;
+
+                //set default values
+                //OrderDate = DateTime.UtcNow
+            };
 
 
             //set customer information
