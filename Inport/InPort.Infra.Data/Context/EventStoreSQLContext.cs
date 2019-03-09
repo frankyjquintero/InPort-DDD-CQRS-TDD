@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using InPort.Domain.Core.Events;
-using InPort.Infra.Data.Configurations;
+using InPort.Infra.Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

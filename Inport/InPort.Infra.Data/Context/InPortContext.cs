@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using InPort.Domain.AggregatesModel.CountryAgg;
 using InPort.Domain.AggregatesModel.CustomerAgg;
-using InPort.Infra.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

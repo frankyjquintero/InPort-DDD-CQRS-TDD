@@ -1,8 +1,8 @@
+using InPort.Domain.Core.Events;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using InPort.Domain.Core.Events;
 
-namespace InPort.Infra.Data.Configurations
+namespace InPort.Infra.Data.Configuration
 {    
     public class StoredEventConfiguration : IEntityTypeConfiguration<StoredEvent>
     {

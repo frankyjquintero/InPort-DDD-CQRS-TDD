@@ -1,8 +1,8 @@
+using InPort.Domain.AggregatesModel.CustomerAgg;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using InPort.Domain.AggregatesModel.CustomerAgg;
 
-namespace InPort.Infra.Data.Configurations
+namespace InPort.Infra.Data.Configuration
 {
     public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
