@@ -2,33 +2,35 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using InPort.Domain.AggregatesModel.ProductAgg;
 
 namespace InPort.Domain.AggregatesModel.MeasurentUnitAgg
 {
     public class MeasurentUnit
         : Entity
     {
+       
+        #region Properties
+        public MeasurentUnitType MeasurentUnitType { get; private set; }
+        public int MeasurentUnitTypeId { get; private set; }
+
+        public string Name { get; private set; }
+
+        public virtual ICollection<ProductMeasurentUnit> ProductMeasurentUnits { get; private set; }
+        #endregion
+
         #region Constructor
         public MeasurentUnit()
         {
+            ProductMeasurentUnits = new HashSet<ProductMeasurentUnit>();
         }
 
-        public MeasurentUnit(string measurentUnitType, string measurentUnitDescription, string[] measurentUnitDetails)
+        public MeasurentUnit(MeasurentUnitType measurentUnitType, string name)
         {
+            Name = name;
             MeasurentUnitType = measurentUnitType;
-            MeasurentUnitDescription = measurentUnitDescription;
-            MeasurentUnitDetails = measurentUnitDetails;
+            MeasurentUnitTypeId = measurentUnitType.Id;
         }
-        #endregion
-        #region Properties
-
-
-        public string MeasurentUnitType { get; private set; }
-
-        public string MeasurentUnitDescription { get; private set; }
-
-        public string[] MeasurentUnitDetails { get; private set; }
-
         #endregion
     }
 }
