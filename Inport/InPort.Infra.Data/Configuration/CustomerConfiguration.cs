@@ -9,9 +9,9 @@ namespace InPort.Infra.Data.Configuration
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder.Property(e => e.Id)
-                .HasColumnName("ID")
-                .HasMaxLength(5)
-                .ValueGeneratedNever();
+                .HasColumnName("CustomerId")
+                .ValueGeneratedNever()
+                .IsRequired();
 
             builder.OwnsOne(u => u.Address);
             ////builder.Property(e => e.City).HasMaxLength(15);
