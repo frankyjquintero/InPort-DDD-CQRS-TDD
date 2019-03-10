@@ -13,22 +13,13 @@ namespace InPort.Domain.AggregatesModel.OrderIncomeAgg
     public static class OrderFactory
     {
 
-        public static OrderIncome CreateOrder(Customer customer)
+        public static OrderIncome CreateOrder(Customer customer, string mainSupportDocument, string secondarySupportDocument, string observation)
         {
-            //create the order
-            var order = new OrderIncome
-            {
 
+            var order = new OrderIncome(mainSupportDocument, secondarySupportDocument,  observation);
 
-                //set default values
-                //OrderDate = DateTime.UtcNow
-            };
-
-
-            //set customer information
             order.SetTheCustomerForThisOrder(customer);
 
-            //set identity
             order.GenerateNewIdentity();
 
             return order;

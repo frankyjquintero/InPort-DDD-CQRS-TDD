@@ -3,6 +3,7 @@ using InPort.Domain.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using InPort.Domain.AggregatesModel.MeasurentUnitAgg;
 using InPort.Domain.AggregatesModel.ProductAgg;
@@ -23,7 +24,7 @@ namespace InPort.Domain.AggregatesModel.OrderIncomeAgg
         public Guid CustomerId { get; private set; }
         public virtual Customer Customer { get; private set; }
         public OrderIncomeStatus OrderIncomeStatus { get; private set; }
-        private int _orderStatusId;
+        public int OrderIncomeStatusId { get; private set; }
 
         public ICollection<OrderIncomeLine> OrderIncomeLines { get; private set; }
         #endregion
@@ -34,15 +35,16 @@ namespace InPort.Domain.AggregatesModel.OrderIncomeAgg
             OrderIncomeLines = new HashSet<OrderIncomeLine>();
         }
 
-        public OrderIncome(string mainSupportDocument, string secondarySupportDocument, string observation, int sequenceNumberOrder, Guid customerId)
+        public OrderIncome(string mainSupportDocument, string secondarySupportDocument, string observation)
         {
             MainSupportDocument = mainSupportDocument;
             SecondarySupportDocument = secondarySupportDocument;
             Observation = observation;
             //SequenceNumberOrder = sequenceNumberOrder;
-            CustomerId = customerId;
             OrderDate = DateTime.Now;
-            _orderStatusId = OrderIncomeStatus.Ingreso.Id;
+            OrderIncomeStatusId = OrderIncomeStatus.Ingreso.Id;
+            OrderIncomeStatus = OrderIncomeStatus.Ingreso;
+            OrderIncomeLines = new HashSet<OrderIncomeLine>();
         }
         #endregion
 
@@ -50,19 +52,35 @@ namespace InPort.Domain.AggregatesModel.OrderIncomeAgg
 
         public void SetRegistroBitacoraStatus()
         {
-            if (_orderStatusId == OrderIncomeStatus.Ingreso.Id) _orderStatusId = OrderIncomeStatus.RegistroBitacora.Id;
+            if (OrderIncomeStatusId == OrderIncomeStatus.Ingreso.Id) OrderIncomeStatusId = OrderIncomeStatus.RegistroBitacora.Id;
+            else
+            {
+                throw new Exception("La orden debe estar en estado: " + OrderIncomeStatus.Ingreso);
+            }
         }
         public void SetDianStatus()
         {
-            if (_orderStatusId == OrderIncomeStatus.RegistroBitacora.Id) _orderStatusId = OrderIncomeStatus.Dian.Id;
+            if (OrderIncomeStatusId == OrderIncomeStatus.RegistroBitacora.Id) OrderIncomeStatusId = OrderIncomeStatus.Dian.Id;
+            else
+            {
+                throw new Exception("La orden debe estar en estado: " + OrderIncomeStatus.RegistroBitacora);
+            }
         }
         public void SetVerificacionBitacoraStatus()
         {
-            if (_orderStatusId == OrderIncomeStatus.Dian.Id) _orderStatusId = OrderIncomeStatus.VerificacionBitacora.Id;
+            if (OrderIncomeStatusId == OrderIncomeStatus.Dian.Id) OrderIncomeStatusId = OrderIncomeStatus.VerificacionBitacora.Id;
+            else
+            {
+                throw new Exception("La orden debe estar en estado: " + OrderIncomeStatus.Dian);
+            }
         }
         public void SetCompletadoStatus()
         {
-            if (_orderStatusId == OrderIncomeStatus.VerificacionBitacora.Id) _orderStatusId = OrderIncomeStatus.Completado.Id;
+            if (OrderIncomeStatusId == OrderIncomeStatus.VerificacionBitacora.Id) OrderIncomeStatusId = OrderIncomeStatus.Completado.Id;
+            else
+            {
+                throw new Exception("La orden debe estar en estado: " + OrderIncomeStatus.VerificacionBitacora);
+            }
         }
         public void SetTheCustomerForThisOrder(Customer customer)
         {
@@ -73,29 +91,29 @@ namespace InPort.Domain.AggregatesModel.OrderIncomeAgg
                 throw new ArgumentException("No puede asociar un cliente nulo o transendente");
             }
 
-            this.Customer = customer;
-            this.CustomerId = customer.Id;
+            Customer = customer;
+            CustomerId = customer.Id;
         }
         public void SetTheCustomerReferenceForThisOrder(Guid customerId)
         {
-            if (customerId == Guid.Empty) return;
+            if (customerId == Guid.Empty) throw new ArgumentException("No puede asociar un cliente nulo o transendente"); 
             this.Customer = null;
             this.CustomerId = customerId;
         }
         public void AddOrderItem(Product product, MeasurentUnit measurentUnit, int units = 1)
         {
-            //var existingOrderForProduct = OrderIncomeLines
-            //    .SingleOrDefault(o => (o.ProductId == product.Id && o.MeasurentUnitName == measurentUnit.Name ));
+            var existingOrderForProduct = OrderIncomeLines
+                .SingleOrDefault(o => (o.ProductId == product.Id && o.MeasurentUnitId == measurentUnit.Id));
 
-            //if (existingOrderForProduct != null)
-            //{
-            //    existingOrderForProduct.AddAmount(units);
-            //}
-            //else
-            //{
-            //    var orderItem = new OrderIncomeLine(product, measurentUnit, units);
-            //    _orderIncomeLines.Add(orderItem);
-            //}
+            if (existingOrderForProduct != null)
+            {
+                existingOrderForProduct.AddAmount(units);
+            }
+            else
+            {
+                var orderItem = new OrderIncomeLine(Id,product, measurentUnit, units);
+                OrderIncomeLines.Add(orderItem);
+            }
         }
 
 
