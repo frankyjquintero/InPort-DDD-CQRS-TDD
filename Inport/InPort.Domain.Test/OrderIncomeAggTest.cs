@@ -16,7 +16,7 @@ namespace InPort.Domain.Test
     {
         private readonly Country _country;
         private readonly Customer _customer;
-        private List<Product> _product = new List<Product>();
+        private readonly List<Product> _products = new List<Product>();
         public OrderIncomeAggTest()
         {
             OrderIncome order = new OrderIncome(); //Constructor EF
@@ -32,7 +32,7 @@ namespace InPort.Domain.Test
             for (int i = 0; i < 5; i++)
             {
                 Product prod = ProductFactory.CreateProduct("product" + i, "description" + i);
-                _product.Add(prod);
+                _products.Add(prod);
             }
         }
 
@@ -44,7 +44,7 @@ namespace InPort.Domain.Test
 
             MeasurentUnit measurentUnit = MeasurentUnitFactory.CreateMeasurentUnit(MeasurentUnitType.Longitud, "Litro");
             //Act(Actuar)
-            Product product = _product.First();
+            Product product = _products.First();
             int amount = 1;
             order.AddOrderItem(product, measurentUnit, amount);
 
@@ -68,7 +68,7 @@ namespace InPort.Domain.Test
 
             MeasurentUnit measurentUnit = MeasurentUnitFactory.CreateMeasurentUnit(MeasurentUnitType.Longitud, "Litro");
             //Act(Actuar)
-            Product product = _product.First();
+            Product product = _products.First();
             int amount = 2;
             order.AddOrderItem(product, measurentUnit, amount);
             order.AddOrderItem(product, measurentUnit, amount);
@@ -85,9 +85,6 @@ namespace InPort.Domain.Test
             xline?.Amount.ShouldBe(amount + amount);
 
         }
-
-
-
         [Fact]
         public void SetTheCustomerForThisOrderOk()
         {
