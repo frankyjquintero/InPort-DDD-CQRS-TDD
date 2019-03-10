@@ -48,6 +48,23 @@ namespace InPort.Domain.Test
             //Assert
             Assert.Equal(country.Id, customer.CountryId);
         }
+
+        [Fact]
+        public void CustomerSetCountryFixCountryReferenceId()
+        {
+            //Arrange
+            var country = new Country("Spain", "es-ES");
+            country.GenerateNewIdentity();
+            var newGuid = Guid.NewGuid();
+
+            //Act
+            var customer = new Customer();
+            customer.SetTheCountryForThisCustomer(country);
+            customer.SetTheCountryReference(newGuid);
+
+            //Assert
+            Assert.Equal(newGuid, customer.CountryId);
+        }
         [Fact]
         public void CustomerDisableSetIsEnabledToFalse()
         {
