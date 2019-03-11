@@ -26,7 +26,7 @@ namespace InPort.Aplication.Customers.Commands.DeleteCustomer
         {
             
             var entity = await Uow.Repository.CustomerRepository
-                .SingleAsync(c => c.Id == message.Id);
+                .SingleOrDefaultAsync(c => c.Id == message.Id);
 
             if (entity == null)
                 throw new NotFoundException(nameof(Customer), message.Id);
