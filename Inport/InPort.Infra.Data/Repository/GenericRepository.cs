@@ -11,8 +11,7 @@ namespace InPort.Infra.Data.Repository
 {
     public abstract class GenericRepository<T> where T : Entity
     {
-        protected readonly InPortDbContext Context;
-        
+        protected readonly InPortDbContext Context;     
 
         protected GenericRepository(InPortDbContext context)
         {

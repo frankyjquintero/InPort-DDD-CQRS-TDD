@@ -6,7 +6,7 @@ using System.Text;
 
 namespace InPort.Infra.Data.Context
 {
-     public class InPortDbContextFactory : DesignTimeDbContextFactoryBase<InPortDbContext>
+     public class InPortDbContextDesingFactory : DesignTimeDbContextFactoryBase<InPortDbContext>
     {
         protected override InPortDbContext CreateNewInstance(DbContextOptions<InPortDbContext> options)
         {
