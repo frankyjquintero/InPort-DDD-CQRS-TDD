@@ -33,7 +33,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Domain.Test", "InPort.Domain.Test\InPort.Domain.Test.csproj", "{85FDED77-6CBB-4416-8DBE-F3BC69152308}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InPort.Infra.Data.Test", "InPort.Infra.Data.Test\InPort.Infra.Data.Test.csproj", "{D41BCAA9-0947-46D2-991E-641641901E4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InPort.Infra.Data.Test", "InPort.Infra.Data.Test\InPort.Infra.Data.Test.csproj", "{D41BCAA9-0947-46D2-991E-641641901E4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InPort.Aplication.Test", "InPort.Aplication.Test\InPort.Aplication.Test.csproj", "{9B5DD05A-D5A0-4018-B720-396FE483B6ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,10 @@ Global
 		{D41BCAA9-0947-46D2-991E-641641901E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D41BCAA9-0947-46D2-991E-641641901E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D41BCAA9-0947-46D2-991E-641641901E4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5DD05A-D5A0-4018-B720-396FE483B6ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5DD05A-D5A0-4018-B720-396FE483B6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5DD05A-D5A0-4018-B720-396FE483B6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5DD05A-D5A0-4018-B720-396FE483B6ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
