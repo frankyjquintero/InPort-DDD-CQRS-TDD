@@ -1,5 +1,4 @@
-﻿using InPort.Domain.AggregatesModel.CustomerAgg;
-using InPort.Domain.AggregatesModel.ProductAgg;
+﻿using InPort.Domain.AggregatesModel.ProductAgg;
 using InPort.Domain.Core.IRepository;
 
 namespace InPort.Domain.Repositories

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using InPort.Domain.AggregatesModel.CountryAgg;
+﻿using InPort.Domain.AggregatesModel.CountryAgg;
 using InPort.Domain.Repositories;
 using InPort.Infra.Data.Context;
 

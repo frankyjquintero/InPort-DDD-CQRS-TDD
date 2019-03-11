@@ -1,5 +1,4 @@
-﻿using InPort.Domain.Core;
-using InPort.Domain.Core.Notifications;
+﻿using InPort.Domain.Core.Notifications;
 using InPort.Infra.CrossCutting.Identity.Models;
 using InPort.Infra.CrossCutting.Identity.Models.AccountViewModels;
 using MediatR;

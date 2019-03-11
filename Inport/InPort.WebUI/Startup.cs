@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NSwag.AspNetCore;
 using System;
 
 namespace InPort.WebUI

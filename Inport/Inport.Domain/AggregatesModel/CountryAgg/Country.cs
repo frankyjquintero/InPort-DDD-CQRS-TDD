@@ -1,8 +1,6 @@
 ﻿
 using InPort.Domain.Core.Model;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace InPort.Domain.AggregatesModel.CountryAgg
 {
@@ -37,11 +35,11 @@ namespace InPort.Domain.AggregatesModel.CountryAgg
 
         #endregion
 
-        public string SetName(string name)
+        public void SetName(string name)
         {
             CountryName = name;
         }
-        public string SetIsoCode(string isoCode)
+        public void SetIsoCode(string isoCode)
         {
             CountryISOCode = isoCode;
         }

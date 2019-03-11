@@ -1,8 +1,6 @@
-﻿using Bogus;
-using InPort.Domain.AggregatesModel.CountryAgg;
+﻿using InPort.Domain.AggregatesModel.CountryAgg;
 using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Infra.Data.Context;
-using System;
 using System.Linq;
 
 namespace InPort.Infra.Data.Seeds

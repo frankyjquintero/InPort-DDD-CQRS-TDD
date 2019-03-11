@@ -1,11 +1,9 @@
-﻿using System.IO;
-using InPort.Domain.AggregatesModel.CountryAgg;
+﻿using InPort.Domain.AggregatesModel.CountryAgg;
 using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Domain.AggregatesModel.MeasurentUnitAgg;
 using InPort.Domain.AggregatesModel.OrderIncomeAgg;
 using InPort.Domain.AggregatesModel.ProductAgg;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace InPort.Infra.Data.Context
 {

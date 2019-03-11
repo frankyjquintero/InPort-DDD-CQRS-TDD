@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using InPort.Infra.Data.Context;
 using InPort.Infra.Data.UnitOfWork;
 using Xunit;

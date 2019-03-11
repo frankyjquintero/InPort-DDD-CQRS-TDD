@@ -1,5 +1,4 @@
-﻿using InPort.Domain.AggregatesModel.MeasurentUnitAgg;
-using InPort.Domain.AggregatesModel.ProductAgg;
+﻿using InPort.Domain.AggregatesModel.ProductAgg;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

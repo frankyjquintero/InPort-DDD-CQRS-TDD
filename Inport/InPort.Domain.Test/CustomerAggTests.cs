@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentValidation;
 using InPort.Domain.AggregatesModel.CountryAgg;
 using InPort.Domain.AggregatesModel.CustomerAgg;
 using Xunit;

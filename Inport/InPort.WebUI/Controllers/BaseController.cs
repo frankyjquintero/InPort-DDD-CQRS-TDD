@@ -1,9 +1,7 @@
-﻿using InPort.Domain.Core;
-using InPort.Domain.Core.Notifications;
+﻿using InPort.Domain.Core.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;

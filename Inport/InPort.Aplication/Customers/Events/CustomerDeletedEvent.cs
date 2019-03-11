@@ -1,7 +1,5 @@
 ﻿using InPort.Domain.Core.Events;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace InPort.Aplication.Customers.Events
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace InPort.Domain.AggregatesModel.CountryAgg
+﻿namespace InPort.Domain.AggregatesModel.CountryAgg
 {
     public static class CountryFactory
     {

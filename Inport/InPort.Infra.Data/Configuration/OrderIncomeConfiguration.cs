@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using InPort.Domain.AggregatesModel.CustomerAgg;
+﻿using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Domain.AggregatesModel.OrderIncomeAgg;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

@@ -1,7 +1,5 @@
 ﻿using InPort.Domain.AggregatesModel.CountryAgg;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace InPort.Domain.Test

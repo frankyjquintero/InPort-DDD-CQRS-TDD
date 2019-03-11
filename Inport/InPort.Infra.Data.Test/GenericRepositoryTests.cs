@@ -459,8 +459,8 @@ namespace InPort.Infra.Data.Test
             country1.SetName("Venezuela");
             country1.SetIsoCode("VZ");
             Country country2 = countryRepository.Single(e => e.Id == countryId2);
-            country1.SetName("Brazil");
-            country1.SetIsoCode("Br");
+            country2.SetName("Brazil");
+            country2.SetIsoCode("Br");
 
             List<Country> list = new List<Country>()
             {

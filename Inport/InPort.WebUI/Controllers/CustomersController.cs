@@ -1,4 +1,3 @@
-using InPort.Domain.Core;
 using InPort.Domain.Core.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Http;

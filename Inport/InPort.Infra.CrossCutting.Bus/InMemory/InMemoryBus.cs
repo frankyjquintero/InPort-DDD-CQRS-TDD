@@ -1,11 +1,6 @@
 ﻿using InPort.Domain.Core;
 using InPort.Domain.Core.Events;
-using InPort.Domain.Core.Querys;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InPort.Infra.CrossCutting.Bus
 {

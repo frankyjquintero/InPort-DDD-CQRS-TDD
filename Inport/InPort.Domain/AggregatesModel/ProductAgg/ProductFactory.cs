@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace InPort.Domain.AggregatesModel.ProductAgg
+﻿namespace InPort.Domain.AggregatesModel.ProductAgg
 {
     public static class ProductFactory
     {

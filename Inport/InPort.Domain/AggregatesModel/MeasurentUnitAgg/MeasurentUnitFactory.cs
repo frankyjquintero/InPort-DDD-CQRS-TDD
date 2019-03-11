@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace InPort.Domain.AggregatesModel.MeasurentUnitAgg
+﻿namespace InPort.Domain.AggregatesModel.MeasurentUnitAgg
 {
     public static class MeasurentUnitFactory
     {

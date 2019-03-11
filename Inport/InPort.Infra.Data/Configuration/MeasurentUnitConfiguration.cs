@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using InPort.Domain.AggregatesModel.MeasurentUnitAgg;
-using InPort.Domain.AggregatesModel.ProductAgg;
+﻿using InPort.Domain.AggregatesModel.MeasurentUnitAgg;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
