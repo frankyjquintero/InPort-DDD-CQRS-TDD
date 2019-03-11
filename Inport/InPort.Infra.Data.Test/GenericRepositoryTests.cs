@@ -1,11 +1,13 @@
 ﻿using InPort.Domain.AggregatesModel.CountryAgg;
+using InPort.Domain.Repositories;
 using InPort.Infra.Data.Context;
 using InPort.Infra.Data.Test.Base;
 using InPort.Infra.Data.UnitOfWork;
-using  InPort.Domain.Repositories;
 using Shouldly;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Xunit;
 
 namespace InPort.Infra.Data.Test
@@ -29,28 +31,28 @@ namespace InPort.Infra.Data.Test
         {
             //Arrange
             ICountryRepository countryRepository = _unitOfWork.CountryRepository;
-            Guid countryId = new Guid("32BB805F-40A4-4C37-AA96-B7945C8C385C");
 
             //Act
-            Country country = countryRepository.Single(e => e.Id == countryId);
+            IEnumerable<Country> countries = countryRepository.GetAll();
 
             //Assert
-            country.ShouldNotBeNull();
-            country.Id.ShouldBe(countryId);
+            List<Country> enumerable = countries.ToList();
+            enumerable.ShouldNotBeNull();
+            enumerable.Count.ShouldBe(2);
         }
         [Fact]
         public async Task GetAllAsycTest()
         {
             //Arrange
             ICountryRepository countryRepository = _unitOfWork.CountryRepository;
-            Guid countryId = new Guid("32BB805F-40A4-4C37-AA96-B7945C8C385C");
 
             //Act
-            Country country = await countryRepository.SingleAsync(e => e.Id == countryId);
+            IEnumerable<Country> countries = await countryRepository.GetAllAsync();
 
             //Assert
-            country.ShouldNotBeNull();
-            country.Id.ShouldBe(countryId);
+            List<Country> enumerable = countries.ToList();
+            enumerable.ShouldNotBeNull();
+            enumerable.Count.ShouldBe(2);
         }
         #endregion
 
