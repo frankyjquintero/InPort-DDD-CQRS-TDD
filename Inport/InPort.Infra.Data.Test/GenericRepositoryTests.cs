@@ -415,5 +415,73 @@ namespace InPort.Infra.Data.Test
 
         #endregion
 
+        #region  Remove
+        [Fact]
+        public void UpdateTest()
+        {
+            //Arrange
+            InPortDbContext context = InPortContextFactory.Create();
+            UnitOfWorkContainer unitwork = new UnitOfWorkContainer(context);
+            ICountryRepository countryRepository = unitwork.Repository.CountryRepository;
+
+            Guid countryId = new Guid("32BB805F-40A4-4C37-AA96-B7945C8C385C");
+            // "Spain", "es-ES"
+
+            //Act
+            Country country = countryRepository.Single(e => e.Id == countryId);
+            country.SetName("Venezuela");
+            country.SetIsoCode("VZ");
+            countryRepository.Update(country);
+            unitwork.SaveChanges();
+
+            Country countryF = countryRepository.SingleOrDefault(e => e.Id == countryId);
+            //Assert
+            countryF.ShouldNotBeNull();
+            countryF.CountryName.ShouldBe("Venezuela");
+            countryF.CountryISOCode.ShouldBe("VZ");
+
+        }
+        [Fact]
+        public void UpdateRangeTest()
+        {
+            //Arrange
+            InPortDbContext context = InPortContextFactory.Create();
+            UnitOfWorkContainer unitwork = new UnitOfWorkContainer(context);
+            ICountryRepository countryRepository = unitwork.Repository.CountryRepository;
+
+            Guid countryId1 = new Guid("32BB805F-40A4-4C37-AA96-B7945C8C385C");
+            // "Spain", "es-ES"
+            Guid countryId2 = new Guid("C3C82D06-6A07-41FB-B7EA-903EC456BFC5");
+            // "EEUU", "en-US"
+
+            //Act
+            Country country1 = countryRepository.Single(e => e.Id == countryId1);
+            country1.SetName("Venezuela");
+            country1.SetIsoCode("VZ");
+            Country country2 = countryRepository.Single(e => e.Id == countryId2);
+            country1.SetName("Brazil");
+            country1.SetIsoCode("Br");
+
+            List<Country> list = new List<Country>()
+            {
+                country1,
+                country2
+            };
+            countryRepository.Update(list);
+            unitwork.SaveChanges();
+
+            Country countryF1 = countryRepository.SingleOrDefault(e => e.Id == countryId1);
+            Country countryF2 = countryRepository.SingleOrDefault(e => e.Id == countryId2);
+            //Assert
+            countryF1.ShouldNotBeNull();
+            countryF1.CountryName.ShouldBe("Venezuela");
+            countryF1.CountryISOCode.ShouldBe("VZ");
+            countryF2.ShouldNotBeNull();
+            countryF2.CountryName.ShouldBe("Brazil");
+            countryF2.CountryISOCode.ShouldBe("Br");
+        }
+
+        #endregion
+
     }
 }

@@ -36,5 +36,14 @@ namespace InPort.Domain.AggregatesModel.CountryAgg
         }
 
         #endregion
+
+        public string SetName(string name)
+        {
+            CountryName = name;
+        }
+        public string SetIsoCode(string isoCode)
+        {
+            CountryISOCode = isoCode;
+        }
     }
 }
