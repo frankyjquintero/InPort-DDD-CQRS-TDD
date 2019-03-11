@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using InPort.Aplication.Core.Commands;
 using InPort.Aplication.Core.Exceptions;
@@ -11,7 +12,7 @@ using MediatR;
 
 namespace InPort.Aplication.Customers.Commands.CreateCustomer
 {
-    public class CreateCustomerCommandHandler : CommandHandler, IRequestHandler<CreateCustomerCommand, Unit>
+    public class CreateCustomerCommandHandler : CommandHandler, IRequestHandler<CreateCustomerCommand, Guid>
     {
 
  
@@ -23,10 +24,10 @@ namespace InPort.Aplication.Customers.Commands.CreateCustomer
         {
         }
 
-        public async Task<Unit> Handle(CreateCustomerCommand message, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateCustomerCommand message, CancellationToken cancellationToken)
         {
             var country = await Uow.Repository.CountryRepository
-                .SingleAsync(c => c.Id == message.CountryId);
+                .SingleOrDefaultAsync(c => c.Id == message.CountryId);
 
             if (country == null)
                 throw new NotFoundException(nameof(Country), message.CountryId);
@@ -35,21 +36,16 @@ namespace InPort.Aplication.Customers.Commands.CreateCustomer
 
             var customer = CustomerFactory.CreateCustomer(message.FirstName, message.LastName, message.Telephone, message.Company, message.Email, country, address);
 
-            //if (_customerRepository.GetByEmail(customer.Email) != null)
-            //{
-            //    await Bus.RaiseEvent(new DomainNotification(message.MessageType, "El correo electrónico del cliente ya ha sido tomado."));
-            //    return Unit.Value;
-            //}
-
-            await Uow.Repository.CountryRepository.AddAsync(country);
+            await Uow.Repository.CustomerRepository.AddAsync(customer);
 
 
             if (await Uow.SaveChangesAsync())
             {
                await Bus.Publish(new CustomerCreatedEvent(customer.Id), cancellationToken);
+               return customer.Id;
             }
 
-            return Unit.Value;
+            return Guid.Empty;
         }
 
     }

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace InPort.Aplication.Customers.Commands.CreateCustomer
 {
-    public class CreateCustomerCommand : IRequest
+    public class CreateCustomerCommand : IRequest<Guid>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
