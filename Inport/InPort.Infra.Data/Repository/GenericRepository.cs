@@ -112,8 +112,6 @@ namespace InPort.Infra.Data.Repository
         }
         #endregion
 
-    
-
         #region First
         public  T First(
             Expression<Func<T, bool>> predicate,

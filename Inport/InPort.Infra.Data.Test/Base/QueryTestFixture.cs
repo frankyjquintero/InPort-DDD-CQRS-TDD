@@ -10,12 +10,12 @@ namespace InPort.Infra.Data.Test.Base
     public class QueryTestFixture : IDisposable
     {
         public InPortDbContext Context { get; private set; }
-        public UnitOfWorkRepository UnitOfWork { get; private set; }
+        public UnitOfWorkContainer UnitOfWork { get; private set; }
 
         public QueryTestFixture()
         {
             Context = InPortContextFactory.Create();
-            UnitOfWork = new UnitOfWorkRepository(Context);
+            UnitOfWork = new UnitOfWorkContainer(Context);
         }
 
         public void Dispose()
