@@ -6,7 +6,6 @@ using InPort.Domain;
 using InPort.Domain.AggregatesModel.CountryAgg;
 using InPort.Domain.AggregatesModel.CustomerAgg;
 using InPort.Domain.Core.Notifications;
-using InPort.Infra.Data.Context;
 using MediatR;
 
 namespace InPort.Aplication.Customers.Commands.UpdateCustomer

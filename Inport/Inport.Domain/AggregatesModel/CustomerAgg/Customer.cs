@@ -1,7 +1,6 @@
 ﻿using InPort.Domain.AggregatesModel.CountryAgg;
 using InPort.Domain.Core.Model;
 using System;
-using System.Collections.Generic;
 
 
 namespace InPort.Domain.AggregatesModel.CustomerAgg

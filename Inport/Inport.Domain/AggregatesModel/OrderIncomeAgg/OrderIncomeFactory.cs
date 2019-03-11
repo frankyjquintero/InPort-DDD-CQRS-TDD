@@ -1,7 +1,4 @@
 ﻿using InPort.Domain.AggregatesModel.CustomerAgg;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace InPort.Domain.AggregatesModel.OrderIncomeAgg
 {

@@ -1,7 +1,5 @@
 ﻿using InPort.Domain.Core.Model;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using InPort.Domain.AggregatesModel.ProductAgg;
 
 namespace InPort.Domain.AggregatesModel.MeasurentUnitAgg

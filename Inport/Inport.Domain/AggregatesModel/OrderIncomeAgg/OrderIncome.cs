@@ -2,8 +2,6 @@
 using InPort.Domain.Core.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
 using System.Linq;
 using InPort.Domain.AggregatesModel.MeasurentUnitAgg;
 using InPort.Domain.AggregatesModel.ProductAgg;

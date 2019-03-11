@@ -1,5 +1,4 @@
-﻿using InPort.Domain.AggregatesModel.MeasurentUnitAgg;
-using InPort.Domain.Core.Model;
+﻿using InPort.Domain.Core.Model;
 using System.Collections.Generic;
 using InPort.Domain.AggregatesModel.OrderIncomeAgg;
 
