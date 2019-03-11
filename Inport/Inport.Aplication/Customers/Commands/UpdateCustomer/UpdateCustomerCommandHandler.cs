@@ -24,7 +24,7 @@ namespace InPort.Aplication.Customers.Commands.UpdateCustomer
         public async Task<Unit> Handle(UpdateCustomerCommand message, CancellationToken cancellationToken)
         {
             var entity = await Uow.Repository.CustomerRepository
-                .SingleAsync(c => c.Id == message.Id);
+                .SingleOrDefaultAsync(c => c.Id == message.Id);
 
             if (entity == null)
                 throw new NotFoundException(nameof(Customer), message.Id);
@@ -38,7 +38,7 @@ namespace InPort.Aplication.Customers.Commands.UpdateCustomer
             entity.LastName = message.LastName;
 
             var country = await Uow.Repository.CountryRepository
-                .SingleAsync(c => c.Id == message.CountryId);
+                .SingleOrDefaultAsync(c => c.Id == message.CountryId);
             if (country == null)
                 throw new NotFoundException(nameof(Country), message.CountryId);
 
